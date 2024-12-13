@@ -1,2 +1,4 @@
 pcb/fp-info-cache
 pcb/gerbers
+.DS_Store
+pcb/*/kicad_backups*
