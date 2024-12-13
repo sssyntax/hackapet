@@ -11,6 +11,7 @@ export default {
       "darkBlue": "#137D88",
       "lightPink": "#FB91A8",
       "darkPink": "#C84267",
+      "black":"#11081A",
     },
   },
   plugins: [],

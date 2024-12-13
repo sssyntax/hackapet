@@ -9,3 +9,12 @@ body {
 img {
     image-rendering: pixelated;
 }
+
+@font-face {
+    font-family: 'retro';
+    src: url('/retro.woff') format('woff');
+  }
+
+.retro {
+    font-family: 'Retro', sans-serif;
+}
