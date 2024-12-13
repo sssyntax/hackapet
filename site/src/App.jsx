@@ -30,11 +30,17 @@ function App() {
           </div>
         </div>
       </div>
+
+      <div>
+        <p>What's in the box?</p>
+        <p></p>
+      </div>
+
       <h>fdjsk</h>
 
       <img src="/footerbg.png" className="w-full"/>
       <div className="bg-black w-full flex flex-col justify-center items-center text-lightBlue pt-4 md:pt-2 pb-6">
-        <p>made by @acon <span className="opacity-70"><i> - follow me on github for a special suprise!</i></span></p>
+        <p>made by @acon <span className="opacity-70"><i> - follow me on <a href="https://github.com/acornitum" className="text-lightPink" target="_blank" rel="noopener noreferrer">github</a> for a special suprise!</i></span></p>
         <p>site art by @ItsKareem</p>
       </div>
     </>
