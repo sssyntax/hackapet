@@ -18,15 +18,15 @@ function App() {
         <img src="/herobg.png" className="absolute bottom-0 w-full"/>
       </div>
       <div className="bg-darkBlue w-full py-10">
-        <div className="flex flex-wrap justify-center gap-8 text-black">
+        <div className="flex flex-wrap justify-center gap-8 text-darkBlue retro">
           <div className="bg-lightBlue p-5 max-w-sm text-center rounded-sm">
             <p>1. draw and design your character + backgrounds!</p>
           </div>
           <div className="bg-lightBlue p-5 max-w-sm text-center rounded-sm">
-            <p>2. program your game - make it move, etc</p>
+            <p>2. code your game - make it playable on the device!</p>
           </div>
           <div className="bg-lightBlue p-5 max-w-sm text-center rounded-sm">
-            <p>3. submit your game - then wait for your package to arrive in the mail!</p>
+            <p>3. submit your game and wait for a package to arrive in the mail!</p>
           </div>
         </div>
       </div>
@@ -37,9 +37,7 @@ function App() {
         </div>
         <p></p>
       </div>
-
-      <h>fdjsk</h>
-
+      
       <img src="/footerbg.png" className="w-full"/>
       <div className="bg-black w-full flex flex-col justify-center items-center text-lightBlue pt-4 md:pt-2 pb-6">
         <div className="text-center mx-5">
