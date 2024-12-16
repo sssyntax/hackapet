@@ -35,9 +35,43 @@ function App() {
         <div className="flex flex-col justify-center align-center">
           <p className="text-center text-3xl retro text-darkBlue">What's in the box?</p>
         </div>
-        <p></p>
+
+        <div className="flex flex-wrap justify-center items-center gap-8 mt-4">
+          <img src="tama1.png" className="w-96"/>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-black mx-5">
+            <div className="border-dashed border-4 border-darkBlue p-4">
+              <p className="text-sm text-darkBlue">Microcontroller - ESP32 2 mini 2</p>
+              <p className="text-lg">Includes wifi + bluetooth capabilities!</p>
+            </div>
+            <div className="border-dashed border-4 border-darkBlue p-4">
+              <p className="text-sm text-darkBlue">Screen</p>
+              <p className="text-lg">1.5in 128x128 pixels full color oled</p>
+            </div>
+            <div className="border-dashed border-4 border-darkBlue p-4">
+              <p className="text-sm text-darkBlue">PCB Dimentions - 5.6x6.6cm</p>
+              <p className="text-lg">The size of an actual tamagotchi!</p>
+            </div>
+            <div className="border-dashed border-4 border-darkBlue p-4">
+              <p className="text-sm text-darkBlue">Additional parts</p>
+              <p className="text-lg">3 buttons and 3 LEDs for you to program</p>
+            </div>
+            <div className="border-dashed border-4 border-darkBlue p-4">
+              <p className="text-sm text-darkBlue">Hackable!</p>
+              <p className="text-lg">16 pins broken out to add anything on</p>
+            </div>
+            <div className="border-dashed border-4 border-darkBlue p-4">
+              <p className="text-sm text-darkBlue">Battery - 2xAAA</p>
+              <p className="text-lg">Lasts around 8 hours*</p>
+            </div>
+          </div>
+        </div>
+        
+
+
+
+
       </div>
-      
+
       <img src="/footerbg.png" className="w-full"/>
       <div className="bg-black w-full flex flex-col justify-center items-center text-lightBlue pt-4 md:pt-2 pb-6">
         <div className="text-center mx-5">
