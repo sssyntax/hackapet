@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <div className="h-screen flex flex-col justify-center items-center">
-        <img src="https://assets.hackclub.com/flag-orpheus-top.svg" className="absolute top-0 left-2"/>
+        <a href="https://hackclub.com" target="_blank" rel="noopenner noreferrer"><img src="https://assets.hackclub.com/flag-orpheus-top.svg" className="absolute top-0 left-2"/></a>
         <div className="flex flex-col justify-center items-center text-center text-[#FFFFFF] mb-24">
           <img src="/logo.svg" className="w-full px-6 md:h-44 lg:h-64 xl:h-72" />
           <p className="mx-8 text-2xl text-darkPink md:mt-4 mt-8 retro">Code a virtual pet. Get a tamagotchi clone!</p>
@@ -65,9 +65,21 @@ function App() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="my-12 bg-darkBlue py-12">
+        <div className="flex flex-col justify-center items-center text-center">
+          <p className="text-3xl text-lightBlue retro">So... how can I get one?</p>
+        </div>
+
+        <div className="mx-44 text-lightBlue text-xl mt-4">
+          <p>Hackapet isn't for sale! Build an original game and we'll personally mail you one - "you ship, we ship!"</p>
+
+          <p>How do I make a game?</p>
+          <p>Circuitpython! We'll be using [this] so that you can display circuitpython on your PC, without the hardware.</p>
         
-
-
+        <button className="p-4 bg-lightPink text-black rounded-sm mt-8">Submit your game by making a pull request!</button>
+        </div>
 
 
       </div>
