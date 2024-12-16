@@ -40,7 +40,7 @@ function App() {
           <img src="tama1.png" className="w-96"/>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-black mx-5">
             <div className="border-dashed border-4 border-darkBlue p-4">
-              <p className="text-sm text-darkBlue">Microcontroller - ESP32 2 mini 2</p>
+              <p className="text-sm text-darkBlue">Microcontroller - ESP32 S2 mini 2</p>
               <p className="text-lg">Includes wifi + bluetooth capabilities!</p>
             </div>
             <div className="border-dashed border-4 border-darkBlue p-4">
