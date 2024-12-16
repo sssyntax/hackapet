@@ -9,8 +9,9 @@ function App() {
   return (
     <>
       <div className="h-screen flex flex-col justify-center items-center">
+        <img src="/watercolorbg.png" className="absolute top-0 w-full opacity-80"/>
         <a href="https://hackclub.com" target="_blank" rel="noopenner noreferrer"><img src="https://assets.hackclub.com/flag-orpheus-top.svg" className="absolute top-0 left-2"/></a>
-        <div className="flex flex-col justify-center items-center text-center text-[#FFFFFF] mb-24">
+        <div className="flex flex-col justify-center items-center text-center text-[#FFFFFF] mb-20 z-10">
           <img src="/logo.svg" className="w-full px-6 md:h-44 lg:h-64 xl:h-72" />
           <p className="mx-8 text-2xl text-darkPink md:mt-4 mt-8 retro">Code a virtual pet. Get a tamagotchi clone!</p>
           <button href="#" className="px-8 py-2 bg-lightPink mt-4 text-xl rounded-sm retro">join now !!!!!!</button>
@@ -84,7 +85,12 @@ function App() {
 
       </div>
 
-      <img src="/footerbg.png" className="w-full"/>
+      <div className="">
+        <img src="/footerbg.png" className="w-full"/>
+      </div>
+      
+
+
       <div className="bg-black w-full flex flex-col justify-center items-center text-lightBlue pt-4 md:pt-2 pb-6">
         <div className="text-center mx-5">
           <p>made by @acon <span className="opacity-70"><i> - follow me on <a href="https://github.com/acornitum" className="text-lightPink" target="_blank" rel="noopener noreferrer">github</a> for a special suprise!</i></span></p>
