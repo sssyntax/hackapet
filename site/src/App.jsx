@@ -42,7 +42,7 @@ function App() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-black mx-5">
             <div className="border-dashed border-4 border-darkBlue p-4">
               <p className="text-sm text-darkBlue">Microcontroller - ESP32 S2 mini 2</p>
-              <p className="text-lg">Includes wifi capabilities!</p>
+              <p className="text-lg">Includes wifi  capabilities!</p>
             </div>
             <div className="border-dashed border-4 border-darkBlue p-4">
               <p className="text-sm text-darkBlue">Screen</p>
@@ -72,14 +72,44 @@ function App() {
         <div className="flex flex-col justify-center items-center text-center">
           <p className="text-3xl text-lightBlue retro">So... how can I get one?</p>
         </div>
+        <p className="text-lightBlue flex flex-col justify-center text-center mx-5 mt-4">Hackapet isn't for sale! Build an original game and we'll personally mail you one - "you ship, we ship!"</p>
 
-        <div className="mx-44 text-lightBlue text-xl mt-4">
-          <p>Hackapet isn't for sale! Build an original game and we'll personally mail you one - "you ship, we ship!"</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 text-lightBlue text-xl mt-8 mx-10 gap-8">
+          <div className="">
+            <div className="border-4 border-dashed border-lightBlue p-8 text-sm">
+              <p className="text-2xl mb-2">How do I make a game?</p>
+              <p>For this, we'll be using <a href="https://circuitpython.org/" target="_blank" rel="noopenner noreferrer">CircuitPython</a>! It's a programming language similar to Python, used on microcontroller boards.</p>
+              <p>You'll also need to <a href="https://pypi.org/project/blinka-displayio-pygamedisplay/" target="_blank" rel="noopenner noreferrer">this library</a>, which allows you to output CircuitPython displayio code to a pygame window on PC, instead of a hardware display.</p>
+              <p>To set that up, after making a folder for your project, make a virtual enviorment by pasting in the commands below:</p>
+              <p>INSERT LINES HERE</p>
+              <p>For getting keyboard inputs, I use pygame. When you get the actual device, you'll need to switch out any pygame code for circuitpython.</p>
+            </div>
+            <div className="border-4 border-dashed border-lightBlue p-8 mt-8 text-sm">
+              <p className="text-2xl mb-2">How do I draw pixel art?</p>
+              <p>I use <a href="https://www.aseprite.org/" target="_blank" rel="noopenner noreferrer">Aesprite</a>, a pixel art app! You can use it for free by compiling it yourself <a href="https://github.com/aseprite/aseprite/blob/main/INSTALL.md" target="_blank" rel="noopenner noreferrer">here</a>.</p>
+              <p>Don't want to compile anything? Download <a href="https://libresprite.github.io/#!/" target="_blank" rel="noopenner noreferrer">Libresprite</a>, an older version of Aesprite! Should work similarily.</p>
+              <p>Don't want to download anything? <a href="https://www.piskelapp.com/" target="_blank" rel="noopenner noreferrer">Piskel</a> is an online pixel art editor.</p>
+              <p>Download your files as .bmp</p>
+              <p>For animations, download the entire sheet.</p>
+            </div>
+          </div>
 
-          <p>How do I make a game?</p>
-          <p>Circuitpython! We'll be using [this] so that you can display circuitpython on your PC, without the hardware.</p>
+
+          <div className="border-4 border-dashed border-lightBlue p-8 text-sm">
+            <p className="text-2xl mb-2">How do I submit my game?</p>
+            <p>Submission criteria:</p>
+            <p>1. You must be in high school (or younger)</p>
+            <p>2. The game must have at least 2 minutes of gameplay.</p>
+            <p>3. It must be original.</p>
+            <p>How to submit:</p>
+            <p>1. Fork the Hackapet repo on GitHub!</p>
+            <p>2. Add your game to the submissions folder in a new folder (include your art too!)</p>
+            <p>3. Make a pull request.</p>
+            <p>4. If it gets merged, you're in! Wait for a form to fill out for shipping info.</p>
+            <button className="p-4 bg-lightPink text-black rounded-sm mt-4">Submit your game by making a pull request!</button>
+            <p>Questions? Ask in #hackapet in the Hack Club Slack!</p>
+          </div>
         
-        <button className="p-4 bg-lightPink text-black rounded-sm mt-8">Submit your game by making a pull request!</button>
         </div>
 
 
