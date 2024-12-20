@@ -18,3 +18,12 @@ img {
 .retro {
     font-family: 'Retro', sans-serif;
 }
+
+a {
+  color: lightpink;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: white;
+}

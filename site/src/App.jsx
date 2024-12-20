@@ -27,7 +27,7 @@ function App() {
             <p>2. code your game - make it playable on the device!</p>
           </div>
           <div className="bg-lightBlue p-5 max-w-sm text-center rounded-sm">
-            <p>3. submit your game and wait for a package to arrive in the mail!</p>
+            <p>3. submit your game + wait for the console to arrive in mail!</p>
           </div>
         </div>
       </div>
@@ -74,40 +74,58 @@ function App() {
         </div>
         <p className="text-lightBlue flex flex-col justify-center text-center mx-5 mt-4">Hackapet isn't for sale! Build an original game and we'll personally mail you one - "you ship, we ship!"</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 text-lightBlue text-xl mt-8 mx-10 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 text-lightBlue text-xl mt-8 mx-5 xl:mx-44 gap-8">
           <div className="">
             <div className="border-4 border-dashed border-lightBlue p-8 text-sm">
-              <p className="text-2xl mb-2">How do I make a game?</p>
-              <p>For this, we'll be using <a href="https://circuitpython.org/" target="_blank" rel="noopenner noreferrer">CircuitPython</a>! It's a programming language similar to Python, used on microcontroller boards.</p>
-              <p>You'll also need to <a href="https://pypi.org/project/blinka-displayio-pygamedisplay/" target="_blank" rel="noopenner noreferrer">this library</a>, which allows you to output CircuitPython displayio code to a pygame window on PC, instead of a hardware display.</p>
-              <p>To set that up, after making a folder for your project, make a virtual enviorment by pasting in the commands below:</p>
-              <p>INSERT LINES HERE</p>
-              <p>For getting keyboard inputs, I use pygame. When you get the actual device, you'll need to switch out any pygame code for circuitpython.</p>
+              <p className="text-2xl mb-4">How do I make a game?</p>
+              <p>For this, we'll be using <a href="https://circuitpython.org/" className="link" target="_blank" rel="noopenner noreferrer">CircuitPython</a>! It's a programming language similar to Python, used on microcontroller boards.</p>
+              <p className="mt-4">You'll also need to <a href="https://pypi.org/project/blinka-displayio-pygamedisplay/" target="_blank" rel="noopenner noreferrer">this library</a>, which allows you to output CircuitPython displayio code to a pygame window on PC, instead of a hardware display.</p>
+              <p className="mt-4">To set that up, make a virtual enviorment by using the commands below (further instructions <a href="https://pypi.org/project/blinka-displayio-pygamedisplay/" target="_blank" rel="noopenner noreferrer">here</a>):</p>
+              <div className="bg-black bg-opacity-50 p-4 rounded-lg mt-4">
+                <p>mkdir project-name && cd project-name</p>
+                <p>python3 -m venv .env</p>
+                <p>source .env/bin/activate</p>
+                <p>pip3 install blinka-displayio-pygamedisplay</p>
+              </div>
+              <p className="mt-4">For getting keyboard inputs, I use pygame. When you get the actual device, you'll need to switch out any pygame code for circuitpython.</p>
             </div>
             <div className="border-4 border-dashed border-lightBlue p-8 mt-8 text-sm">
-              <p className="text-2xl mb-2">How do I draw pixel art?</p>
-              <p>I use <a href="https://www.aseprite.org/" target="_blank" rel="noopenner noreferrer">Aesprite</a>, a pixel art app! You can use it for free by compiling it yourself <a href="https://github.com/aseprite/aseprite/blob/main/INSTALL.md" target="_blank" rel="noopenner noreferrer">here</a>.</p>
-              <p>Don't want to compile anything? Download <a href="https://libresprite.github.io/#!/" target="_blank" rel="noopenner noreferrer">Libresprite</a>, an older version of Aesprite! Should work similarily.</p>
-              <p>Don't want to download anything? <a href="https://www.piskelapp.com/" target="_blank" rel="noopenner noreferrer">Piskel</a> is an online pixel art editor.</p>
-              <p>Download your files as .bmp</p>
-              <p>For animations, download the entire sheet.</p>
+              <p className="text-2xl mb-4">How do I draw pixel art?</p>
+              <p>I use <a href="https://www.aseprite.org/" target="_blank" rel="noopenner noreferrer">Aesprite</a>, a pixel art app! You can get it for free by compiling it yourself <a href="https://github.com/aseprite/aseprite/blob/main/INSTALL.md" target="_blank" rel="noopenner noreferrer">here</a>.</p>
+              <p className="mt-4">Don't want to compile anything? Download <a href="https://libresprite.github.io/#!/" target="_blank" rel="noopenner noreferrer">Libresprite</a>, an older version of Aesprite! Should work similarily.</p>
+              <p className="mt-4">Don't want to download anything? <a href="https://www.piskelapp.com/" target="_blank" rel="noopenner noreferrer">Piskel</a> is an online pixel art editor.</p>
+              <p className="mt-4">Some asset suggestions:</p>
+              <div className="ml-4">
+                <p>⁕ 2-3 different backgrounds! (128x128 pixels)</p>
+                <p>⁕ character - idle/walking animations (rec 32x32 to 64x64 pixels)</p>
+                <p>⁕ food + other small items</p>
+              </div>
+              
+              <p className="mt-4">After you're done drawing, download your files as .bmp</p>
+              <p className="mt-4">For animations, download the entire animation as a singular sprite sheet file. You can cut it into frames in code!</p>
+              <img src="/cat-Sheet.bmp" className="w-full mt-4"/>
+              <p className="opacity-70 mt-2"><i>Here's the sprite sheet for the idle animation of my pet!</i></p>
             </div>
           </div>
 
 
           <div className="border-4 border-dashed border-lightBlue p-8 text-sm">
-            <p className="text-2xl mb-2">How do I submit my game?</p>
+            <p className="text-2xl mb-4">How do I submit my game?</p>
             <p>Submission criteria:</p>
-            <p>1. You must be in high school (or younger)</p>
-            <p>2. The game must have at least 2 minutes of gameplay.</p>
-            <p>3. It must be original.</p>
-            <p>How to submit:</p>
-            <p>1. Fork the Hackapet repo on GitHub!</p>
-            <p>2. Add your game to the submissions folder in a new folder (include your art too!)</p>
-            <p>3. Make a pull request.</p>
-            <p>4. If it gets merged, you're in! Wait for a form to fill out for shipping info.</p>
+            <div className="ml-4">
+              <p>1. You must be in high school (or younger)</p>
+              <p>2. The game must have at least 2 minutes of gameplay.</p>
+              <p>3. It must be original.</p>
+            </div>
+            <p className="mt-4">How to submit:</p>
+            <div className="ml-4">
+              <p>1. Fork the Hackapet repo on GitHub!</p>
+              <p>2. Create a new folder in /games + put in your files (include art!)</p>
+              <p>3. Make a pull request.</p>
+              <p>4. If it gets merged, you're in! Wait for a form to fill.</p>
+            </div>
             <button className="p-4 bg-lightPink text-black rounded-sm mt-4">Submit your game by making a pull request!</button>
-            <p>Questions? Ask in #hackapet in the Hack Club Slack!</p>
+            <p className="mt-2">Questions? Ask in #hackapet in the Hack Club Slack!</p>
           </div>
         
         </div>
