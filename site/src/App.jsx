@@ -19,7 +19,7 @@ function App() {
         <img src="/herobg.png" className="absolute bottom-0 w-full"/>
       </div>
       <div className="bg-darkBlue w-full py-10">
-        <div className="flex flex-wrap justify-center gap-8 text-darkBlue retro">
+        <div className="flex flex-wrap justify-center gap-8 text-darkBlue retro mx-5">
           <div className="bg-lightBlue p-5 max-w-sm text-center rounded-sm">
             <p>1. draw and design your character + backgrounds!</p>
           </div>
