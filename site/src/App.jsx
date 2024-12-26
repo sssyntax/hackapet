@@ -141,7 +141,9 @@ function App() {
 
       <div className="bg-black w-full flex flex-col justify-center items-center text-lightBlue pt-4 md:pt-2 pb-6">
         <div className="text-center mx-5">
-          <p>made by @acon <span className="opacity-70"><i> - follow me on <a href="https://github.com/acornitum" className="text-lightPink" target="_blank" rel="noopener noreferrer">github</a> for a special suprise!</i></span></p>
+          <p>site by @acon <span className="opacity-70"><i> - follow me on <a href="https://github.com/acornitum" className="text-lightPink" target="_blank" rel="noopener noreferrer">github</a> for a special suprise!</i></span></p>
+          <p>pcb by @acon, @alexren, @cheru</p>
+          <p>firmware by @alexren</p>
           <p>site art by @ItsKareem</p>
         </div>
       </div>
