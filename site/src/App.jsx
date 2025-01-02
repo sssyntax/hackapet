@@ -15,7 +15,7 @@ function App() {
           <img src="/logo.svg" className="w-full px-6 md:h-44 lg:h-64 xl:h-72" />
           <p className="mx-8 text-2xl text-darkPink md:mt-4 mt-8 retro">Code a virtual pet. Get a tamagotchi clone!</p>
           {/*<button href="#" className="px-8 py-2 bg-slate mt-4 text-xl rounded-sm retro">coming VERY soon !!!</button>*/}
-          <img src="/arrows.svg" className="w-16 mt-8 bobble"/>
+          <img src="/arrows.svg" className="w-16 mt-24 lg:mt-8 bobble"/>
         </div>
         <img src="/herobg.png" className="absolute bottom-0 w-full"/>
       </div>
@@ -134,8 +134,17 @@ function App() {
 
       </div>
 
-      <div className="">
-        <img src="/footerbg.png" className="w-full"/>
+      <div className="relative">
+        <div className="px-12 mb-4 text-darkPink">
+          <p>Here are some pictures of the Hackapet prototype v2!</p>
+        </div>
+
+        <div className="px-12 flex flex-wrap pb-20">
+          <img src="/pic1.png" className="mr-8 mb-8 lg:mb-0 border-4 border-darkPink border-dashed"/>
+          <img src="/pic2.png" className="border-4 border-darkPink border-dashed" />
+        </div>
+
+        <img src="/footerbg.png" className="w-full absolute bottom-0"/>
       </div>
       
 
