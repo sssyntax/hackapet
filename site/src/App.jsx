@@ -14,7 +14,8 @@ function App() {
         <div className="flex flex-col justify-center items-center text-center text-[#FFFFFF] mb-20 z-10">
           <img src="/logo.svg" className="w-full px-6 md:h-44 lg:h-64 xl:h-72" />
           <p className="mx-8 text-2xl text-darkPink md:mt-4 mt-8 retro">Code a virtual pet. Get a tamagotchi clone!</p>
-          <button href="#" className="px-8 py-2 bg-slate mt-4 text-xl rounded-sm retro">coming VERY soon !!!</button>
+          {/*<button href="#" className="px-8 py-2 bg-slate mt-4 text-xl rounded-sm retro">coming VERY soon !!!</button>*/}
+          <img src="/arrows.svg" className="w-16 mt-8 bobble"/>
         </div>
         <img src="/herobg.png" className="absolute bottom-0 w-full"/>
       </div>
@@ -124,7 +125,7 @@ function App() {
               <p>3. Make a pull request.</p>
               <p>4. If it gets merged, you're in! Wait for a form to fill.</p>
             </div>
-            <button className="p-4 bg-slate text-black rounded-sm mt-4">Submit your game by making a pull request!</button>
+            <a href="https://github.com/hackclub/hackapet" target="_blank" rel="noopenner noreferrer"><button className="p-4 bg-lightPink text-black rounded-sm mt-4">Submit your game by making a pull request!</button></a>
             <p className="mt-2">Questions? Ask in #hackapet in the Hack Club Slack!</p>
           </div>
         
