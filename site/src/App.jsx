@@ -121,7 +121,7 @@ function App() {
             <p className="mt-4">How to submit:</p>
             <div className="ml-4">
               <p>1. Fork the Hackapet repo on GitHub!</p>
-              <p>2. Create a new folder in /pets + put in your files (include art!)</p>
+              <p>2. Create a new folder in <a href="https://github.com/hackclub/hackapet/tree/main/pets" target="_blank" rel="noopenner noreferrer">/pets</a> + put in your files (include art!)</p>
               <p>3. Make a pull request.</p>
               <p>4. If it gets merged, you're in! Wait for a form to fill.</p>
             </div>
