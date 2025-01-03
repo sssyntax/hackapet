@@ -104,7 +104,7 @@ function App() {
               
               <p className="mt-4">After you're done drawing, download your files as .bmp</p>
               <p className="mt-4">For animations, download the entire animation as a singular sprite sheet file. You can cut it into frames in code!</p>
-              <img src="/cat-Sheet.bmp" className="w-full mt-4"/>
+              <img src="/cat-Sheet.png" className="w-full mt-4"/>
               <p className="opacity-70 mt-2"><i>Here's the sprite sheet for the idle animation of my pet!</i></p>
             </div>
           </div>
