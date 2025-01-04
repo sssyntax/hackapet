@@ -92,7 +92,7 @@ function App() {
             </div>
             <div className="border-4 border-dashed border-lightBlue p-8 mt-8 text-sm">
               <p className="text-2xl mb-4">How do I draw pixel art?</p>
-              <p>I use <a href="https://www.aseprite.org/" target="_blank" rel="noopenner noreferrer">Aesprite</a>, a pixel art app! You can get it for free by compiling it yourself <a href="https://github.com/aseprite/aseprite/blob/main/INSTALL.md" target="_blank" rel="noopenner noreferrer">here</a>.</p>
+              <p>I use <a href="https://www.aseprite.org/" target="_blank" rel="noopenner noreferrer">Aseprite</a>, a pixel art app! You can get it for free by compiling it yourself <a href="https://github.com/aseprite/aseprite/blob/main/INSTALL.md" target="_blank" rel="noopenner noreferrer">here</a>.</p>
               <p className="mt-4">Don't want to compile anything? Download <a href="https://libresprite.github.io/#!/" target="_blank" rel="noopenner noreferrer">Libresprite</a>, an older version of Aesprite! Should work similarily.</p>
               <p className="mt-4">Don't want to download anything? <a href="https://www.piskelapp.com/" target="_blank" rel="noopenner noreferrer">Piskel</a> is an online pixel art editor.</p>
               <p className="mt-4">Some asset suggestions:</p>
