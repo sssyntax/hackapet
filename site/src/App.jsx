@@ -92,7 +92,7 @@ function App() {
             </div>
             <div className="border-4 border-dashed border-lightBlue p-8 mt-8 text-sm">
               <p className="text-2xl mb-4">How do I draw pixel art?</p>
-              <p>I use <a href="https://www.aseprite.org/" target="_blank" rel="noopenner noreferrer">Aesprite</a>, a pixel art app! You can get it for free by compiling it yourself <a href="https://github.com/aseprite/aseprite/blob/main/INSTALL.md" target="_blank" rel="noopenner noreferrer">here</a>.</p>
+              <p>I use <a href="https://www.aseprite.org/" target="_blank" rel="noopenner noreferrer">Aseprite</a>, a pixel art app! You can get it for free by compiling it yourself <a href="https://github.com/aseprite/aseprite/blob/main/INSTALL.md" target="_blank" rel="noopenner noreferrer">here</a>.</p>
               <p className="mt-4">Don't want to compile anything? Download <a href="https://libresprite.github.io/#!/" target="_blank" rel="noopenner noreferrer">Libresprite</a>, an older version of Aesprite! Should work similarily.</p>
               <p className="mt-4">Don't want to download anything? <a href="https://www.piskelapp.com/" target="_blank" rel="noopenner noreferrer">Piskel</a> is an online pixel art editor.</p>
               <p className="mt-4">Some asset suggestions:</p>
@@ -104,7 +104,7 @@ function App() {
               
               <p className="mt-4">After you're done drawing, download your files as .bmp</p>
               <p className="mt-4">For animations, download the entire animation as a singular sprite sheet file. You can cut it into frames in code!</p>
-              <img src="/cat-Sheet.bmp" className="w-full mt-4"/>
+              <img src="/cat-Sheet.png" className="w-full mt-4"/>
               <p className="opacity-70 mt-2"><i>Here's the sprite sheet for the idle animation of my pet!</i></p>
             </div>
           </div>
@@ -121,7 +121,7 @@ function App() {
             <p className="mt-4">How to submit:</p>
             <div className="ml-4">
               <p>1. Fork the Hackapet repo on GitHub!</p>
-              <p>2. Create a new folder in /games + put in your files (include art!)</p>
+              <p>2. Create a new folder in <a href="https://github.com/hackclub/hackapet/tree/main/pets" target="_blank" rel="noopenner noreferrer">/pets</a> + put in your files (include art!)</p>
               <p>3. Make a pull request.</p>
               <p>4. If it gets merged, you're in! Wait for a form to fill.</p>
             </div>
