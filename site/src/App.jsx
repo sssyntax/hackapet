@@ -42,7 +42,7 @@ function App() {
           <img src="tama1.png" className="w-96"/>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-black mx-5">
             <div className="border-dashed border-4 border-darkBlue p-4">
-              <p className="text-sm text-darkBlue">Microcontroller - ESP32 S2 mini 2</p>
+              <p className="text-sm text-darkBlue">Microcontroller - ESP32-S2FH4</p>
               <p className="text-lg">Includes wifi  capabilities!</p>
             </div>
             <div className="border-dashed border-4 border-darkBlue p-4">
@@ -50,12 +50,12 @@ function App() {
               <p className="text-lg">1.5in 128x128 pixels full color oled</p>
             </div>
             <div className="border-dashed border-4 border-darkBlue p-4">
-              <p className="text-sm text-darkBlue">PCB Dimentions - 5.6x6.6cm</p>
-              <p className="text-lg">The size of an actual tamagotchi!</p>
+              <p className="text-sm text-darkBlue">Dimensions</p>
+              <p className="text-lg">5.6x6.6cm - the size of an actual tamagotchi!</p>
             </div>
             <div className="border-dashed border-4 border-darkBlue p-4">
-              <p className="text-sm text-darkBlue">Additional parts</p>
-              <p className="text-lg">3 buttons and 3 LEDs for you to program</p>
+              <p className="text-sm text-darkBlue">Extras!</p>
+              <p className="text-lg">3 tactile buttons 3 LEDs for you to program</p>
             </div>
             <div className="border-dashed border-4 border-darkBlue p-4">
               <p className="text-sm text-darkBlue">Hackable!</p>
@@ -80,7 +80,7 @@ function App() {
             <div className="border-4 border-dashed border-lightBlue p-8 text-sm">
               <p className="text-2xl mb-4">How do I make a game?</p>
               <p>For this, we'll be using <a href="https://circuitpython.org/" className="link" target="_blank" rel="noopenner noreferrer">CircuitPython</a>! It's a programming language similar to Python, used on microcontroller boards.</p>
-              <p className="mt-4">You'll also need to <a href="https://pypi.org/project/blinka-displayio-pygamedisplay/" target="_blank" rel="noopenner noreferrer">this library</a>, which allows you to output CircuitPython displayio code to a pygame window on PC, instead of a hardware display.</p>
+              <p className="mt-4">You'll also need to use <a href="https://pypi.org/project/blinka-displayio-pygamedisplay/" target="_blank" rel="noopenner noreferrer">this library</a>, which allows you to output CircuitPython displayio code to a pygame window on PC, instead of a hardware display.</p>
               <p className="mt-4">To set that up, make a virtual enviorment by using the commands below (further instructions <a href="https://pypi.org/project/blinka-displayio-pygamedisplay/" target="_blank" rel="noopenner noreferrer">here</a>):</p>
               <div className="bg-black bg-opacity-50 p-4 rounded-lg mt-4">
                 <p>mkdir project-name && cd project-name</p>
@@ -153,7 +153,7 @@ function App() {
         <div className="text-center mx-5">
           <p>site by @acon <span className="opacity-70"><i> - follow me on <a href="https://github.com/acornitum" className="text-lightPink" target="_blank" rel="noopener noreferrer">github</a> for a special suprise!</i></span></p>
           <p>pcb by @acon, @dari // alexren, @cheru</p>
-          <p>firmware by @dari // alexren</p>
+          <p>firmware by @dari // alexren |<span className="opacity-70"><i> follow me too ill send sticker {"->"} <a href="https://github.com/qcoral" className="text-lightPink" target="_blank" rel="noopener noreferrer">github</a></i></span></p>
           <p>site art by @ItsKareem</p>
         </div>
       </div>
