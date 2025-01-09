@@ -31,7 +31,7 @@ group.append(forest_bg_sprite)
 
 cat_filename = "/images/cat_pbg.bmp"
 cat_img, cat_pal = adafruit_imageload.load(cat_filename)
-pal.make_transparent(0)
+cat_pal.make_transparent(0)
 cat_tilegrid = displayio.TileGrid(cat_img, pixel_shader=cat_pal)
 
 group.append(cat_tilegrid)
