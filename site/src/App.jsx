@@ -81,12 +81,12 @@ function App() {
               <p className="text-2xl mb-4">How do I make a game?</p>
               <p>For this, we'll be using <a href="https://circuitpython.org/" className="link" target="_blank" rel="noopenner noreferrer">CircuitPython</a>! It's a programming language similar to Python, used on microcontroller boards.</p>
               <p className="mt-4">You'll also need to use <a href="https://pypi.org/project/blinka-displayio-pygamedisplay/" target="_blank" rel="noopenner noreferrer">this library</a>, which allows you to output CircuitPython displayio code to a pygame window on PC, instead of a hardware display.</p>
-              <p className="mt-4">To set that up, make a virtual enviorment by using the commands below (further instructions <a href="https://pypi.org/project/blinka-displayio-pygamedisplay/" target="_blank" rel="noopenner noreferrer">here</a>):</p>
+              <p className="mt-4">To set that up, make a virtual enviorment by using the commands below (for macOS and Linux only!) (further instructions <a href="https://pypi.org/project/blinka-displayio-pygamedisplay/" target="_blank" rel="noopenner noreferrer">here</a>):</p>
               <div className="bg-black bg-opacity-50 p-4 rounded-lg mt-4">
                 <p>mkdir project-name && cd project-name</p>
                 <p>python3 -m venv .env</p>
                 <p>source .env/bin/activate</p>
-                <p>pip3 install blinka-displayio-pygamedisplay</p>
+                <p>pip3 install blinka-displayio-pygamedisplay adafruit-circuitpython-display-text</p>
               </div>
               <p className="mt-4">For getting keyboard inputs, I use pygame. When you get the actual device, you'll need to switch out any pygame code for circuitpython.</p>
             </div>
