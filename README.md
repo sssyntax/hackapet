@@ -4,7 +4,7 @@ A YSWS where you code + design a virtual pet, and we ship you a physical hackabl
 
 Check out the site: https://hackapet.hackclub.dev - includes more info + getting started guide!
 
-#### on submissions
+## on submissions
 
 When you've finished your game, create a PR in the /pets folder! 
 
