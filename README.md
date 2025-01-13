@@ -8,12 +8,12 @@ Check out the site: https://hackapet.hackclub.dev - includes more info + getting
 
 When you've finished your game, create a PR in the /pets folder! 
 
+Call your PR whatever your pet/game is named - also, **put your slack username in the PR comment so I can find you**!!
+
 Note:
 - you must be in high school (or younger!)
 - all art must be drawn by you
-- try to have at least 2 minutes of gameplay 
-
-**Put your slack username in your PR comment so I can find you!!**
+- try to have at least 2 minutes of gameplay
 
 This YSWS ends Jan 31 - get your pets in before then :D
 
