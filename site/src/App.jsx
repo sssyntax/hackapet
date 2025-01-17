@@ -17,7 +17,7 @@ function App() {
           <p className="mx-8 text-2xl text-darkPink md:mt-4 mt-8 retro">Code a virtual pet. Get a tamagotchi clone!</p>
           {/*<button href="#" className="px-8 py-2 bg-slate mt-4 text-xl rounded-sm retro">coming VERY soon !!!</button>*/}
           <EmailButton />
-          <img src="/arrows.svg" className="w-16 mt-24 lg:mt-8 bobble"/>
+          <img src="/arrows.svg" className="w-16 mt-16 lg:mt-8 bobble"/>
         </div>
         <img src="/herobg.png" className="absolute bottom-0 w-full"/>
       </div>
@@ -152,10 +152,10 @@ function App() {
 
 
       <div className="bg-black w-full flex flex-col justify-center items-center text-lightBlue pt-4 md:pt-2 pb-6">
-        <div className="text-center mx-5">
+        <div className="text-center mx-5 neuebit leading-none">
           <p>site by @acon <span className="opacity-70"><i> - follow me on <a href="https://github.com/acornitum" className="text-lightPink" target="_blank" rel="noopener noreferrer">github</a> for a special suprise!</i></span></p>
           <p>pcb by @acon, @dari // alexren, @cheru</p>
-          <p>firmware by @dari // alexren |<span className="opacity-70"><i> follow me too ill send sticker {"->"} <a href="https://github.com/qcoral" className="text-lightPink" target="_blank" rel="noopener noreferrer">github</a></i></span></p>
+          <p>firmware by @dari // alexren<span className="opacity-70"><i> - follow me too ill send sticker {"->"} <a href="https://github.com/qcoral" className="text-lightPink" target="_blank" rel="noopener noreferrer">github</a></i></span></p>
           <p>site art by @ItsKareem</p>
         </div>
       </div>

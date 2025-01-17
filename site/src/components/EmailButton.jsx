@@ -42,9 +42,7 @@ const EmailSignup = () => {
   };
 
   return (
-    <div className="max-w-sm mx-auto p-6 border border-gray-300 rounded-lg shadow-lg">
-      <h2 className="text-2xl font-semibold text-center mb-4">Sign up for our Newsletter</h2>
-      
+    <div className="mx-auto p-6 rounded-lg">      
       {status && (
         <div className={`text-center p-2 mb-4 ${status.type === 'error' ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'}`}>
           {status.message}
@@ -54,7 +52,7 @@ const EmailSignup = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="email"
-          className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="p-2 mb-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Enter your email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -62,12 +60,13 @@ const EmailSignup = () => {
         />
         <button
           type="submit"
-          className={`w-full p-2 text-white rounded-md ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
+          className={`p-2 text-white rounded-md bg-lightPink ${isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
           disabled={isSubmitting}
         >
-          {isSubmitting ? 'Submitting...' : 'Sign Up'}
+          {isSubmitting ? 'Submitting...' : 'Join the Slack'}
         </button>
       </form>
+      <p className="text-darkPink">Not currently in the Hack Club Slack? Enter your email to get join instructions!</p>
     </div>
   );
 };
