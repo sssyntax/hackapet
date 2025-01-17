@@ -1,7 +1,10 @@
 // api/add-email.js
 import Airtable from 'airtable';
+import 'dotenv/config'
 
-const base = new Airtable({ apiKey: process.env.AIRTABLE_API_KEY }).base(process.env.HACKAPET_BASE_ID);
+console.log(process.env.NEXT_PUBLIC_AIRTABLE_API_KEY);
+
+const base = new Airtable({ apiKey: process.env.NEXT_PUBLIC_AIRTABLE_API_KEY }).base(process.env.NEXT_PUBLIC_HACKAPET_BASE_ID);
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -14,7 +17,7 @@ export default async function handler(req, res) {
 
     try {
       // Check if the email already exists in Airtable
-      const records = await base(process.env.HACKAPET_TABLE_ID)
+      const records = await base(process.env.NEXT_PUBLIC_HACKAPET_TABLE_ID)
         .select({
           filterByFormula: `{email} = "${email}"`,
           maxRecords: 1,
@@ -26,7 +29,7 @@ export default async function handler(req, res) {
       }
 
       // Add the email to Airtable
-      await base(process.env.HACKAPET_TABLE_ID).create([{ fields: { email } }]);
+      await base(process.env.NEXT_PUBLIC_HACKAPET_TABLE_ID).create([{ fields: { email } }]);
 
       return res.status(200).json({ message: 'Email successfully added!' });
     } catch (error) {
