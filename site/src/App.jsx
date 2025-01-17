@@ -2,6 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import EmailButton from "./components/EmailButton.jsx";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -15,6 +16,7 @@ function App() {
           <img src="/logo.svg" className="w-full px-6 md:h-44 lg:h-64 xl:h-72" />
           <p className="mx-8 text-2xl text-darkPink md:mt-4 mt-8 retro">Code a virtual pet. Get a tamagotchi clone!</p>
           {/*<button href="#" className="px-8 py-2 bg-slate mt-4 text-xl rounded-sm retro">coming VERY soon !!!</button>*/}
+          <EmailButton />
           <img src="/arrows.svg" className="w-16 mt-24 lg:mt-8 bobble"/>
         </div>
         <img src="/herobg.png" className="absolute bottom-0 w-full"/>
