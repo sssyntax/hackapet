@@ -75,7 +75,7 @@ function App() {
         <div className="flex flex-col justify-center items-center text-center">
           <p className="text-3xl text-lightBlue retro">So... how can I get one?</p>
         </div>
-        <p className="text-lightBlue flex flex-col justify-center text-center mx-5 mt-4 neuebit-body">Hackapet isn't for sale! As long as you're a teenager, an original game and we'll personally mail you one for free - "you ship, we ship!"</p>
+        <p className="text-lightBlue flex flex-col justify-center text-center mx-5 mt-4 neuebit-body">Hackapet isn't for sale! As long as you're a teenager, you can create an original game and we'll personally mail you one for free - "you ship, we ship!"</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 text-lightBlue text-xl mt-8 mx-5 xl:mx-44 gap-8">
           <div className="">
