@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
     try {
       // Check if the email already exists in Airtable
-      const records = await base(process.env.NEXT_PUBLIC_HACKAPET_TABLE_ID)
+      const records = await base('pets')
         .select({
           filterByFormula: `{email} = "${email}"`,
           maxRecords: 1,
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
       }
 
       // Add the email to Airtable
-      await base(process.env.NEXT_PUBLIC_HACKAPET_TABLE_ID).create([{ fields: { email } }]);
+      await base('pets').create([{ fields: { email } }]);
 
       return res.status(200).json({ message: 'Email successfully added!' });
     } catch (error) {
