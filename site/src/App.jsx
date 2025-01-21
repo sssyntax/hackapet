@@ -3,6 +3,7 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Toolbar from "./components/Toolbar.jsx";
 import "./App.css";
+import EmailButton from "./components/EmailButton.jsx";
 
 import { Outlet, Link } from "react-router-dom";
 
@@ -25,23 +26,23 @@ function App() {
                         src="https://assets.hackclub.com/flag-orpheus-top.svg"
                         className="absolute top-0 left-2"
                     />
-                    <div className="absolute top-0 right-4">
-                        <Toolbar />
-                    </div>
                 </a>
+                <div className="absolute top-0 right-4">
+                    <Toolbar />
+                </div>
                 <div className="flex flex-col justify-center items-center text-center text-[#FFFFFF] mb-20 z-10">
                     <img
                         src="/logo.svg"
                         className="w-full px-6 md:h-44 lg:h-64 xl:h-72"
                     />
-
                     <p className="mx-8 text-2xl text-darkPink md:mt-4 mt-8 retro">
                         Code a virtual pet. Get a tamagotchi clone!
                     </p>
                     {/*<button href="#" className="px-8 py-2 bg-slate mt-4 text-xl rounded-sm retro">coming VERY soon !!!</button>*/}
+                    <EmailButton />
                     <img
                         src="/arrows.svg"
-                        className="w-16 mt-24 lg:mt-8 bobble"
+                        className="w-16 mt-16 lg:mt-8 bobble"
                     />
                 </div>
                 <img src="/herobg.png" className="absolute bottom-0 w-full" />
@@ -79,31 +80,31 @@ function App() {
                             <p className="text-sm text-darkBlue">
                                 Microcontroller - ESP32-S2FH4
                             </p>
-                            <p className="text-lg">
+                            <p className="text-lg neuebit">
                                 Includes wifi capabilities!
                             </p>
                         </div>
                         <div className="border-dashed border-4 border-darkBlue p-4">
                             <p className="text-sm text-darkBlue">Screen</p>
-                            <p className="text-lg">
+                            <p className="text-lg neuebit">
                                 1.5in 128x128 pixels full color oled
                             </p>
                         </div>
                         <div className="border-dashed border-4 border-darkBlue p-4">
                             <p className="text-sm text-darkBlue">Dimensions</p>
-                            <p className="text-lg">
+                            <p className="text-lg neuebit">
                                 5.6x6.6cm - the size of an actual tamagotchi!
                             </p>
                         </div>
                         <div className="border-dashed border-4 border-darkBlue p-4">
                             <p className="text-sm text-darkBlue">Extras!</p>
-                            <p className="text-lg">
+                            <p className="text-lg neuebit">
                                 3 tactile buttons 3 LEDs for you to program
                             </p>
                         </div>
                         <div className="border-dashed border-4 border-darkBlue p-4">
                             <p className="text-sm text-darkBlue">Hackable!</p>
-                            <p className="text-lg">
+                            <p className="text-lg neuebit">
                                 16 pins broken out to add anything on
                             </p>
                         </div>
@@ -111,7 +112,9 @@ function App() {
                             <p className="text-sm text-darkBlue">
                                 Battery - 2xAAA
                             </p>
-                            <p className="text-lg">Lasts around 8 hours*</p>
+                            <p className="text-lg neuebit">
+                                Lasts around 8 hours*
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -123,19 +126,19 @@ function App() {
                         So... how can I get one?
                     </p>
                 </div>
-                <p className="text-lightBlue flex flex-col justify-center text-center mx-5 mt-4">
-                    Hackapet isn't for sale! As long as you're a teenager, an
-                    original game and we'll personally mail you one for free -
-                    "you ship, we ship!"
+                <p className="text-lightBlue flex flex-col justify-center text-center mx-5 mt-4 neuebit-body">
+                    Hackapet isn't for sale! As long as you're a teenager, you
+                    can create an original game and we'll personally mail you
+                    one for free - "you ship, we ship!"
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 text-lightBlue text-xl mt-8 mx-5 xl:mx-44 gap-8">
                     <div className="">
                         <div className="border-4 border-dashed border-lightBlue p-8 text-sm">
-                            <p className="text-2xl mb-4">
+                            <p className="text-2xl mb-4 neuebit-body">
                                 How do I make a game?
                             </p>
-                            <p>
+                            <p className="neuebit">
                                 For this, we'll be using{" "}
                                 <a
                                     href="https://circuitpython.org/"
@@ -148,7 +151,7 @@ function App() {
                                 ! It's a programming language similar to Python,
                                 used on microcontroller boards.
                             </p>
-                            <p className="mt-4">
+                            <p className="mt-4 neuebit">
                                 You'll also need to use{" "}
                                 <a
                                     href="https://pypi.org/project/blinka-displayio-pygamedisplay/"
@@ -161,9 +164,10 @@ function App() {
                                 displayio code to a pygame window on PC, instead
                                 of a hardware display.
                             </p>
-                            <p className="mt-4">
+                            <p className="mt-4 neuebit">
                                 To set that up, make a virtual enviorment by
-                                using the commands below (further instructions{" "}
+                                using the commands below (for macOS and Linux
+                                only!) (further instructions{" "}
                                 <a
                                     href="https://pypi.org/project/blinka-displayio-pygamedisplay/"
                                     target="_blank"
@@ -173,25 +177,26 @@ function App() {
                                 </a>
                                 ):
                             </p>
-                            <div className="bg-black bg-opacity-50 p-4 rounded-lg mt-4">
+                            <div className="bg-black bg-opacity-50 p-4 rounded-lg mt-4 code">
                                 <p>mkdir project-name && cd project-name</p>
                                 <p>python3 -m venv .env</p>
                                 <p>source .env/bin/activate</p>
                                 <p>
                                     pip3 install blinka-displayio-pygamedisplay
+                                    adafruit-circuitpython-display-text
                                 </p>
                             </div>
-                            <p className="mt-4">
+                            <p className="mt-4 neuebit">
                                 For getting keyboard inputs, I use pygame. When
                                 you get the actual device, you'll need to switch
                                 out any pygame code for circuitpython.
                             </p>
                         </div>
                         <div className="border-4 border-dashed border-lightBlue p-8 mt-8 text-sm">
-                            <p className="text-2xl mb-4">
+                            <p className="text-2xl mb-4 neuebit-body">
                                 How do I draw pixel art?
                             </p>
-                            <p>
+                            <p className="neuebit">
                                 I use{" "}
                                 <a
                                     href="https://www.aseprite.org/"
@@ -211,7 +216,7 @@ function App() {
                                 </a>
                                 .
                             </p>
-                            <p className="mt-4">
+                            <p className="mt-4 neuebit">
                                 Don't want to compile anything? Download{" "}
                                 <a
                                     href="https://libresprite.github.io/#!/"
@@ -223,7 +228,7 @@ function App() {
                                 , an older version of Aesprite! Should work
                                 similarily.
                             </p>
-                            <p className="mt-4">
+                            <p className="mt-4 neuebit">
                                 Don't want to download anything?{" "}
                                 <a
                                     href="https://www.piskelapp.com/"
@@ -234,8 +239,10 @@ function App() {
                                 </a>{" "}
                                 is an online pixel art editor.
                             </p>
-                            <p className="mt-4">Some asset suggestions:</p>
-                            <div className="ml-4">
+                            <p className="mt-4 neuebit">
+                                Some asset suggestions:
+                            </p>
+                            <div className="ml-4 neuebit">
                                 <p>
                                     ⁕ 2-3 different backgrounds! (128x128
                                     pixels)
@@ -247,17 +254,17 @@ function App() {
                                 <p>⁕ food + other small items</p>
                             </div>
 
-                            <p className="mt-4">
+                            <p className="mt-4 neuebit">
                                 After you're done drawing, download your files
                                 as .bmp
                             </p>
-                            <p className="mt-4">
+                            <p className="mt-4 neuebit">
                                 For animations, download the entire animation as
                                 a singular sprite sheet file. You can cut it
                                 into frames in code!
                             </p>
                             <img src="/cat-Sheet.png" className="w-full mt-4" />
-                            <p className="opacity-70 mt-2">
+                            <p className="opacity-70 mt-2 neuebit">
                                 <i>
                                     Here's the sprite sheet for the idle
                                     animation of my pet!
@@ -266,12 +273,12 @@ function App() {
                         </div>
                     </div>
 
-                    <div className="border-4 border-dashed border-lightBlue p-8 text-sm">
-                        <p className="text-2xl mb-4">
+                    <div className="border-4 border-dashed border-lightBlue p-8 text-sm neuebit-body">
+                        <p className="text-2xl mb-4 neuebit">
                             How do I submit my game?
                         </p>
-                        <p>Submission criteria:</p>
-                        <div className="ml-4">
+                        <p className="neuebit">Submission criteria:</p>
+                        <div className="ml-4 neuebit">
                             <p>1. You must be in high school (or younger)</p>
                             <p>
                                 2. The game must have at least 2 minutes of
@@ -279,8 +286,8 @@ function App() {
                             </p>
                             <p>3. It must be original.</p>
                         </div>
-                        <p className="mt-4">How to submit:</p>
-                        <div className="ml-4">
+                        <p className="mt-4 neuebit">How to submit:</p>
+                        <div className="ml-4 neuebit">
                             <p>1. Fork the Hackapet repo on GitHub!</p>
                             <p>
                                 2. Create a new folder in{" "}
@@ -304,12 +311,20 @@ function App() {
                             target="_blank"
                             rel="noopenner noreferrer"
                         >
-                            <button className="p-4 bg-lightPink text-black rounded-sm mt-4">
+                            <button className="p-4 bg-lightPink text-black rounded-sm mt-4 neuebit">
                                 Submit your game by making a pull request!
                             </button>
                         </a>
-                        <p className="mt-2">
-                            Questions? Ask in #hackapet in the Hack Club Slack!
+                        <p className="mt-2 neuebit">
+                            Questions? Ask in{" "}
+                            <a
+                                href="https://hackclub.slack.com/archives/C0809PN4TPE"
+                                target="_blank"
+                                rel="noopenner noreferrer"
+                            >
+                                #hackapet
+                            </a>{" "}
+                            in the Hack Club Slack!
                         </p>
                     </div>
                 </div>
@@ -335,7 +350,7 @@ function App() {
             </div>
 
             <div className="bg-black w-full flex flex-col justify-center items-center text-lightBlue pt-4 md:pt-2 pb-6">
-                <div className="text-center mx-5">
+                <div className="text-center mx-5 neuebit leading-none">
                     <p>
                         site by @acon{" "}
                         <span className="opacity-70">
@@ -356,11 +371,11 @@ function App() {
                     </p>
                     <p>pcb by @acon, @dari // alexren, @cheru</p>
                     <p>
-                        firmware by @dari // alexren |
+                        firmware by @dari // alexren
                         <span className="opacity-70">
                             <i>
                                 {" "}
-                                follow me too ill send sticker {"->"}{" "}
+                                - follow me too ill send sticker {"->"}{" "}
                                 <a
                                     href="https://github.com/qcoral"
                                     className="text-lightPink"

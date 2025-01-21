@@ -17,13 +17,13 @@ const DocPage = ({ Content }) => {
             </Link>
           </nav>
           <nav className="flex flex-col space-y-2 hover:bg-lightPink p-2 rounded-lg px-4">
-            <Link to="/guide" className="text-darkBlue hover:text-darkPink no-underline">
-              Guidefdsfdsafsfds
+            <Link to="/submitting" className="text-darkBlue hover:text-darkPink no-underline">
+              Submitting
             </Link>
           </nav>
           <nav className="flex flex-col space-y-2 hover:bg-lightPink p-2 rounded-lg px-4">
-            <Link to="/guide" className="text-darkBlue hover:text-darkPink no-underline">
-              Guide
+            <Link to="/FAQ" className="text-darkBlue hover:text-darkPink no-underline">
+              FAQ
             </Link>
           </nav>
         </aside>
