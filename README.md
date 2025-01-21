@@ -14,6 +14,7 @@ Note:
 - you must be in high school (or younger!)
 - all art must be drawn by you
 - try to have at least 2 minutes of gameplay
+- also: try to add on something more than what the example has
 
-This YSWS ends Jan 31 - get your pets in before then :D
+This YSWS ends Fed 3rd - get your pets in before then :D
 
