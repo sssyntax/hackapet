@@ -127,8 +127,7 @@ function App() {
                     </p>
                 </div>
                 <p className="text-lightBlue flex flex-col justify-center text-center mx-5 mt-4 neuebit-body">
-                    Hackapet isn't for sale! As long as you're a teenager, you
-                    can create an original game and we'll personally mail you
+                    Hackapet isn't for sale! As long as you're a teenager, create an original game and we'll personally mail you
                     one for free - "you ship, we ship!"
                 </p>
 
