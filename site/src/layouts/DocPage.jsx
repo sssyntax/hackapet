@@ -11,6 +11,11 @@ const DocPage = ({ Content }) => {
       </header>
       <div className="flex">
         <aside className="p-5 border-dashed border-r-4 border-darkBlue">
+        <nav className="flex flex-col space-y-2 hover:bg-lightPink p-2 rounded-lg px-4">
+            <Link to="/setup" className="text-darkBlue hover:text-darkPink no-underline">
+              Setup
+            </Link>
+          </nav>
           <nav className="flex flex-col space-y-2 hover:bg-lightPink p-2 rounded-lg px-4">
             <Link to="/guide" className="text-darkBlue hover:text-darkPink no-underline">
               Guide

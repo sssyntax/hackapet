@@ -2,7 +2,7 @@ const Toolbar = () => {
     return (
       <nav className="px-3 pt-2 pb-1 right-0 border-x-4 border-b-4 rounded-b-lg border-darkBlue max-h-16 bg-lightBlue">
         <div className="border-r-4 border-darkBlue inline-block pr-3">
-          <a href="https://github.com/hackclub/hackpad" target="_blank">
+          <a href="https://github.com/hackclub/hackapet" target="_blank">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 496 512"
