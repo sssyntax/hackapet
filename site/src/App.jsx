@@ -127,8 +127,7 @@ function App() {
                     </p>
                 </div>
                 <p className="text-lightBlue flex flex-col justify-center text-center mx-5 mt-4 neuebit-body">
-                    Hackapet isn't for sale! As long as you're a teenager, you
-                    can create an original game and we'll personally mail you
+                    Hackapet isn't for sale! As long as you're a teenager, create an original game and we'll personally mail you
                     one for free - "you ship, we ship!"
                 </p>
 
@@ -282,9 +281,10 @@ function App() {
                             <p>1. You must be in high school (or younger)</p>
                             <p>
                                 2. The game must have at least 2 minutes of
-                                gameplay.
+                                gameplay
                             </p>
-                            <p>3. It must be original.</p>
+                            <p>3. It must be original</p>
+                            <p>4. All art must be made by you</p>
                         </div>
                         <p className="mt-4 neuebit">How to submit:</p>
                         <div className="ml-4 neuebit">

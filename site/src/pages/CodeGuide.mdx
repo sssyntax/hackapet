@@ -1,19 +1,10 @@
-### setting up - environment
+# Code guide
 
-To code the game, we'll be using a mix of CircuitPython and Pygame!
-
-The Hackapet device only runs CircuitPython, but in order to run it on PC instead of a hardware screen, we'll be using [this blinka-displayio-pygamedisplay library](https://pypi.org/project/blinka-displayio-pygamedisplay/) - it displays CircuitPython in a Pygame window. We'll also be using Pygame to get keyboard input. 
-
-I'd recommend installing it in a virtual environment in your current project. Read about dependencies + installation [here](https://pypi.org/project/blinka-displayio-pygamedisplay/). 
-
-If you're interested a more technical explaination of why we're using this library, @dari // alexren made a writeup in Slack [here](https://hackclub.slack.com/archives/C0809PN4TPE/p1736096638841039).
-
-Then, create a python file! For my game, I've chosen to put everything in a singular file.
-
-After you're done, it should look like [image]. `forestbackground.bmp` and `cat-Sheet.bmp` are my art files for this game!
-### some notes 
+### Preface
 
 In this tutorial, I'll be going through how I made my game, step by step - this assumes you have art assets (even if they're just wips) ready. 
+
+I'm going to assume you have CircuitPython and displayio and everything set up already. If not, go back to [place] and get that done first!
 
 This tutorial also assumes that you're already familiar with basic Python syntax - if not, [w3schools guide](https://www.w3schools.com/python/python_syntax.asp) is a good place to start. Note that unlike other common languages, line indentation matters in Python!
 ### part 1: the basics - how to get things to Show Up

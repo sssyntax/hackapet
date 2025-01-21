@@ -34,7 +34,7 @@ const DocPage = ({ Content }) => {
         </aside>
 
         <div className="flex flex-col w-full m-14">
-          <main className="prose w-full">
+          <main className="prose w-full poppins">
             <Content />
           </main>
         </div>
