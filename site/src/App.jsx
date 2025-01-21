@@ -281,9 +281,9 @@ function App() {
                             <p>1. You must be in high school (or younger)</p>
                             <p>
                                 2. The game must have at least 2 minutes of
-                                gameplay.
+                                gameplay
                             </p>
-                            <p>3. It must be original.</p>
+                            <p>3. It must be original</p>
                             <p>4. All art must be made by you</p>
                         </div>
                         <p className="mt-4 neuebit">How to submit:</p>
