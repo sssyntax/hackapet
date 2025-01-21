@@ -284,6 +284,7 @@ function App() {
                                 gameplay.
                             </p>
                             <p>3. It must be original.</p>
+                            <p>4. All art must be made by you</p>
                         </div>
                         <p className="mt-4 neuebit">How to submit:</p>
                         <div className="ml-4 neuebit">
