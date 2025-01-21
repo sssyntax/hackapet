@@ -3,8 +3,6 @@ import os, shutil, time, PIL, sys
 import importlib
 import importlib.util
 
-import displayio._structs
-
 import patch
 from player import JUMP_FALL_FRAMES, P_LEFT, PLAYER_SIZE, Player
 from world import *
@@ -18,6 +16,14 @@ displayio.TileGrid._fill_area = patch.tilegrid_fill_area_patched
 displayio.Palette._get_alpha_palette = patch.palette_make_alpha_palette_patched
 import pygame
 import pygame.locals as pgl
+
+import adafruit_display_text
+import adafruit_display_text.label
+import adafruit_display_text.text_box
+import displayio._structs
+try:
+    import terminalio
+except: pass
 
 # # od_player_bmp = displayio.OnDiskBitmap("sprites/player.bmp")
 # od_player_bmp = displayio.OnDiskBitmap("sprites/player_indexed.bmp")
@@ -104,7 +110,7 @@ BLOCK_SIZE = 16
 od_block_atlas = displayio.OnDiskBitmap("sprites/block_atlas.bmp")
 BASCALE = 2
 
-BLOCK_ATLAS = displayio.Bitmap(width=od_block_atlas.width * BASCALE, height=od_block_atlas.height * BASCALE, value_count=(2**24))
+BLOCK_ATLAS = displayio.Bitmap(width=od_block_atlas.width * BASCALE, height=od_block_atlas.height * BASCALE, value_count=(2**32))
 
 for x in range(od_block_atlas.width):
     for y in range(od_block_atlas.height):
@@ -267,7 +273,7 @@ def main():
     cam = [0, 0]
     blocks = []
     player = Player(world.random.height_at(0) + 1, world)
-    player_tile = [None, 0]
+    player_tile = [None, 0, None] # [player tilegrid, rainbow counter, player coord text]
 
     def render_world():
         for b in blocks:
@@ -348,6 +354,16 @@ def main():
         )
         
         if player.looking == P_LEFT: player_tile[0].flip_x = True
+        
+        if player_tile[2] is not None:
+            game_box.remove(player_tile[2])
+            player_tile[2] = None
+        if player.noclip:
+            try:
+                player_tile[2] = adafruit_display_text.label.Label(terminalio.FONT, text=f"x: {player.x}, y: {player.y}")
+                game_box.append(player_tile[2])
+            except:
+                if player.should_render: print("Player coordinates: x:", player.x, "- y:", player.y)
         
         game_box.append(player_tile[0])
 

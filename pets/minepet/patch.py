@@ -26,12 +26,12 @@ def bitmap_create_init_patched(self, width: int, height: int, value_count: int):
 
     self._bits_per_value = bits
 
-    # if (
-    #     self._bits_per_value > 8
-    #     and self._bits_per_value != 16
-    #     and self._bits_per_value != 32
-    # ):
-    #     raise NotImplementedError("Invalid bits per value")
+    if (
+        self._bits_per_value > 8
+        and self._bits_per_value != 16
+        and self._bits_per_value != 32
+    ):
+        raise NotImplementedError("Invalid bits per value")
 
     self._image = Image.new("RGBA", (width, height), 0)
     self._dirty_area = _structs.RectangleStruct(0, 0, width, height)
