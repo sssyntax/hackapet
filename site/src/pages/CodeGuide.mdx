@@ -1,0 +1,95 @@
+### setting up - environment
+
+To code the game, we'll be using a mix of CircuitPython and Pygame!
+
+The Hackapet device only runs CircuitPython, but in order to run it on PC instead of a hardware screen, we'll be using [this blinka-displayio-pygamedisplay library](https://pypi.org/project/blinka-displayio-pygamedisplay/) - it displays CircuitPython in a Pygame window. We'll also be using Pygame to get keyboard input. 
+
+I'd recommend installing it in a virtual environment in your current project. Read about dependencies + installation [here](https://pypi.org/project/blinka-displayio-pygamedisplay/). 
+
+If you're interested a more technical explaination of why we're using this library, @dari // alexren made a writeup in Slack [here](https://hackclub.slack.com/archives/C0809PN4TPE/p1736096638841039).
+
+Then, create a python file! For my game, I've chosen to put everything in a singular file.
+
+After you're done, it should look like [image]. `forestbackground.bmp` and `cat-Sheet.bmp` are my art files for this game!
+### some notes 
+
+In this tutorial, I'll be going through how I made my game, step by step - this assumes you have art assets (even if they're just wips) ready. 
+
+This tutorial also assumes that you're already familiar with basic Python syntax - if not, [w3schools guide](https://www.w3schools.com/python/python_syntax.asp) is a good place to start. Note that unlike other common languages, line indentation matters in Python!
+### part 1: the basics - how to get things to Show Up
+
+Firstly, I'm going to import a few libraries that our code relies on. 
+
+```python
+import displayio
+from blinka_displayio_pygamedisplay import PyGameDisplay
+import pygame
+import time
+```
+
+`displayio` is what CircuitPython uses to display things to hardware screens. `blinka_displayio_pygamedisplay` and `pygame` are used to get it displaying in a window on your computer. 
+
+Next, we're going to initialize Pygame and the display. 
+
+```python
+pygame.init()
+display = PyGameDisplay(width=128, height=128)
+splash = displayio.Group()
+display.show(splash)
+```
+
+The OLED screen is 128x128 pixels, thus the width and height being set to that. `splash` is what we're calling the `Group` that the display will show. Read more about display/group/tilegrid nesting [here](https://learn.adafruit.com/circuitpython-display-support-using-displayio/library-overview). 
+
+Now, we're going to add in the background! I have a .bmp file called `forestbackground.bmp`, located in the same folder, which we'll be displaying.
+
+```python
+forest_background = displayio.OnDiskBitmap("forestbackground.bmp")
+
+bg_sprite = displayio.TileGrid(
+	forest_background, 
+	pixel_shader=forest_background.pixel_shader
+)
+
+splash.append(bg_sprite)
+```
+
+The first line defines a variable as the image. The second part gives specifications -  for a background, we only really need to specify the sprite and the shader used. The final line is the one that makes it display on screen.
+
+After that, let's get the cat (my pet) displayed too! Note that my cat is animated; the .bmp file is 9 different frames in one.
+
+```python
+cat_sheet = displayio.OnDiskBitmap("cat-Sheet.bmp")
+
+cat_sprite = displayio.TileGrid(
+	cat_sheet,
+	pixel_shader=cat_sheet.pixel_shader,
+	width=1,
+	height=1,
+	tile_width=32,
+	tile_height=32,
+	default_tile=0,
+	x=(display.width - tile_width) // 2,
+	y=display.height - tile_height - 10
+)
+
+splash.append(cat_sprite)
+```
+
+It's similar to displaying the forst background, but notice how we [defined many more things within the cat sprite] this time around. We'll be using these later - the tile sizes are used for anything relating to size (ie: collsion), `default_tile` [refers to the starting animation], and `x` and `y` define where the sprite rests on the screen. 
+
+Now, we just need a basic gameplay loop before running it.
+
+```python
+while True:
+
+	for event in pygame.event.get():
+		if event.type == pygame.QUIT:
+		pygame.quit()
+		exit()
+
+	time.sleep(0.01)
+```
+
+All this does is check if the player hits the red "x" to quit - if so, the program closes. It runs this loop once every 0.01 seconds.
+
+Now, if we run the game [python run], a small window appears! 
