@@ -28,11 +28,11 @@ def load_image(path, size=None):
         raise SystemExit(e)
 
 backgrounds = [
-    load_image("assets/backgrounds/start_ground.png", (SCREEN_WIDTH, SCREEN_HEIGHT)),      # 0: Start Screen Background
-    load_image("assets/backgrounds/start_no_text.png", (SCREEN_WIDTH, SCREEN_HEIGHT)),    # 1: Game Over Background (Unused)
-    load_image("assets/backgrounds/sky1.png", (SCREEN_WIDTH, SCREEN_HEIGHT)),              # 2: Playing Background 1
-    load_image("assets/backgrounds/sky2.png", (SCREEN_WIDTH, SCREEN_HEIGHT)),              # 3: Playing Background 2
-    load_image("assets/backgrounds/sky3.png", (SCREEN_WIDTH, SCREEN_HEIGHT)),              # 4: Playing Background 3
+    load_image("assets/backgrounds/start_ground.png", (SCREEN_WIDTH, SCREEN_HEIGHT)),      
+    load_image("assets/backgrounds/start_no_text.png", (SCREEN_WIDTH, SCREEN_HEIGHT)),    
+    load_image("assets/backgrounds/sky1.png", (SCREEN_WIDTH, SCREEN_HEIGHT)),             
+    load_image("assets/backgrounds/sky2.png", (SCREEN_WIDTH, SCREEN_HEIGHT)),       
+    load_image("assets/backgrounds/sky3.png", (SCREEN_WIDTH, SCREEN_HEIGHT)),              
 ]
 
 cat_frames = {
