@@ -17,8 +17,20 @@ bg_sprite = displayio.TileGrid(forest_background, pixel_shader=forest_background
 splash.append(bg_sprite)
 
 def display_found_it():
+    yellow_background = displayio.Bitmap(display.width, display.height, 1)
+    yellow_palette = displayio.Palette(1)
+    yellow_palette[0] = 0xFFFF00
+    yellow_bg_sprite = displayio.TileGrid(yellow_background, pixel_shader=yellow_palette)
+    splash.append(yellow_bg_sprite)
+    font = bitmap_font.load_font("./helvR12.bdf")
+    text_area = label.Label(font, text="YOU FOUND IT!", color=0x000000, x=(display.width - 100) // 2,
+                            y=(display.height - 10))
+    splash.append(text_area)
     game_over_image = displayio.OnDiskBitmap("restart.bmp")
-    game_over_sprite = displayio.TileGrid(game_over_image, pixel_shader=game_over_image.pixel_shader)
+    game_over_sprite = displayio.TileGrid(
+        game_over_image,
+        pixel_shader=game_over_image.pixel_shader
+    )
     splash.append(game_over_sprite)
     global game_over
     game_over = True
@@ -52,6 +64,7 @@ game_over_time = 0
 
 def reset_game():
     global dog_sprite, treasure_x, treasure_y, fireballs, game_over, frame, restart_ready, crab_sprite, crab_direction
+
     dog_sprite.x = (display.width - tile_width) // 2
     dog_sprite.y = display.height - tile_height - 10
     treasure_x, treasure_y = get_random_treasure_position()
@@ -59,11 +72,14 @@ def reset_game():
     game_over = False
     frame = 0
     restart_ready = False
+
     crab_sprite.x = 0
     crab_sprite.y = display.height - crab_height - 10
     crab_direction = 1
+
     while len(splash) > 0:
         splash.pop()
+
     splash.append(bg_sprite)
     splash.append(dog_sprite)
     splash.append(crab_sprite)
@@ -92,6 +108,7 @@ def get_proximity():
     distance_x = abs(dog_sprite.x - treasure_x)
     distance_y = abs(dog_sprite.y - treasure_y)
     distance = distance_x + distance_y
+
     if distance == 0:
         return "YOU FOUND IT!"
     elif distance <= 10:
@@ -106,7 +123,8 @@ def display_proximity_message(message):
         if isinstance(sprite, label.Label):
             splash.remove(sprite)
     font = bitmap_font.load_font("./helvR12.bdf")
-    text_area = label.Label(font, text=message, color=0x000000, x=display.width - 5 - len(message) * 8, y=display.height - 20)
+    text_area = label.Label(font, text=message, color=0x000000, x=display.width - 5 - len(message) * 8,
+                            y=display.height - 20)
     splash.append(text_area)
 
 crab_bitmap = displayio.OnDiskBitmap("crab.bmp")
@@ -145,14 +163,33 @@ while True:
             dog_sprite.x -= speed
         if keys[pygame.K_RIGHT] and dog_sprite.x < display.width - tile_width:
             dog_sprite.x += speed
-        if keys[pygame.K_UP] and dog_sprite.y > 0:
-            dog_sprite.y -= speed
+
         if keys[pygame.K_DOWN] and dog_sprite.y < display.height - tile_height:
             dog_sprite.y += speed
+        if keys[pygame.K_UP] and dog_sprite.y > 0:
+            dog_sprite.y -= speed
+            splash.remove(dog_sprite)
+            dog_wings_sheet = displayio.OnDiskBitmap("doggy_wings.bmp")
+            dog_sprite = displayio.TileGrid(
+                dog_wings_sheet,
+                pixel_shader=dog_wings_sheet.pixel_shader,
+                width=1,
+                height=1,
+                tile_width=tile_width,
+                tile_height=tile_height,
+                default_tile=0,
+                x=dog_sprite.x,
+                y=dog_sprite.y
+            )
+            splash.append(dog_sprite)
 
         crab_sprite.x += crab_speed * crab_direction
         if crab_sprite.x <= 0 or crab_sprite.x >= display.width - crab_width:
             crab_direction *= -1
+
+        if abs(dog_sprite.x - crab_sprite.x) < tile_width and abs(dog_sprite.y - crab_sprite.y) < tile_height:
+            display_proximity_message("DOG HIT CRAB!")
+            time.sleep(2)
 
         message = get_proximity()
         display_proximity_message(message)
