@@ -164,7 +164,7 @@ while True:
         if keys[pygame.K_RIGHT] and dog_sprite.x < display.width - tile_width:
             dog_sprite.x += speed
 
-        if keys[pygame.K_DOWN] and dog_sprite.y < display.height - tile_height:
+        if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT] and dog_sprite.y < display.height - tile_height:
             dog_sprite.y += speed
         if keys[pygame.K_UP] and dog_sprite.y > 0:
             dog_sprite.y -= speed
