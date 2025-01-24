@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+import typography from '@tailwindcss/typography';
+
 export default {
   content: [
     "./index.html",
@@ -15,6 +18,8 @@ export default {
       "slate":"#94a3b8",
     },
   },
-  plugins: [],
+  plugins: [
+    typography,
+  ],
 }
 

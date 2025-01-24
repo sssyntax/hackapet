@@ -2,7 +2,7 @@
 
 A YSWS where you code + design a virtual pet, and we ship you a physical hackable tamagotchi clone to play it on!
 
-Check out the site: https://hackapet.hackclub.dev - includes more info + getting started guide!
+Check out the site: https://hackapet.hackclub.com - includes more info + getting started guide!
 
 ## on submissions
 
@@ -14,6 +14,7 @@ Note:
 - you must be in high school (or younger!)
 - all art must be drawn by you
 - try to have at least 2 minutes of gameplay
+- also: try to add on something more than what the example has
 
-This YSWS ends Jan 31 - get your pets in before then :D
+This YSWS ends Fed 3rd - get your pets in before then :D
 

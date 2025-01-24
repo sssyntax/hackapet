@@ -1,0 +1,62 @@
+# Setting up CircuitPython
+
+## Install dependencies
+First, we're going to install all the tools we need before setting anything up.
+
+### Git
+[Git](https://git-scm.com/) is needed to work with the repository and get everything set up!
+
+### Python
+[Python 3](https://www.python.org/) is required. Feel free to install using your preferred method (i.e package manager, executable, etc). Make sure that the Python command works!
+
+### Your IDE
+[VSCode](https://code.visualstudio.com/) is recommended, but you're free to use any IDE you prefer.
+
+## Create your environment
+After installing all the dependencies, now we can set up our actual environment! First, make the folder we'll be working in and go into it
+
+```Bash
+mkdir hackapet-env && cd hackapet-env
+```
+next, clone the repository into a folder named "repo"
+```Bash
+git clone https://github.com/hackclub/hackapet repo
+```
+
+that's it! now onto the Operating-System specific instructions
+
+### MacOS & Linux
+MacOS is pretty similar to windows, except we also need to set up a virutal environment. First, in your hackapet-env folder, create a virtual environment:
+```Bash
+python -m venv venv
+```
+then, activate the virtual environment:
+```Bash
+source venv/bin/activate
+```
+
+Continue with the Windows instructions from here!
+
+### Windows
+If you're on Windows the only thing to catch for is that you're using Windows Terminal and not powershell or command prompt.
+
+### Running the example
+
+head on over into the example folder (repo/pets/acons_example_pet) and install the necessary libraries:
+
+```Bash
+cd repo/pets/acons_example_pet && \
+pip3 install -r requirements.txt
+```
+everything should be good to go! Run the following command and it should start:
+```Bash
+python code/main.py
+```
+If it doesn't work, try using Windows Terminal instead of powershell or Command Prompt. If it still doesn't work, ask in #hackapet!
+
+### Create your own game
+To create your own game, make a new folder in pets:
+```Bash
+cd .. && mkdir your_pet_name
+```
+And you're done! You can start coding your new game, head on over to the [guide](https://hackapet.hackclub.com/guide) to get started
