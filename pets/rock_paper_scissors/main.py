@@ -76,17 +76,20 @@ def draw():
 def win():
     text_sprite[0] = 2
 
-from server import *
-async def start_server():
-    print("Starting server...")
-    try:
-        server.start(str(wifi.radio.ipv4_address))
-        while True:
-            server.poll()
-    except Exception as e:
-        print(f"Server error: {e}")
+try:
+    from server import *
+    async def start_server():
+        print("Starting server...")
+        try:
+            server.start(str(wifi.radio.ipv4_address))
+            while True:
+                server.poll()
+        except Exception as e:
+            print(f"Server error: {e}")
 
-asyncio.run(start_server())
+    asyncio.run(start_server())
+except:
+    print("Unable to start webserver :'(")
 
 while True:
     for event in pygame.event.get():
