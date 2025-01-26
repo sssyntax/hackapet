@@ -11,7 +11,7 @@ pygame.init()
 
 COLORS = {"BLUE": (12, 18, 226), "RED": (255, 0, 0), "GREEN": (0, 255, 0), "YELLOW": (255, 255, 0), "ORANGE": (255, 165, 0), "PURPLE": (128, 0, 128), "PINK": (255, 192, 203), "CYAN": (0, 255, 255), "WHITE": (255, 255, 255), "BLACK": (0, 0, 0), "GRAY": (128, 128, 128), "BROWN": (165, 42, 42)}
 BG_COLOR = (255, 255, 255)
-VISION_COLOR = COLORS["YELLOW"]
+VISION_COLOR = COLORS["GRAY"]
 SHOW_VISION = False
 BOID_SIZE = 3
 WIDTH = 128
@@ -61,15 +61,6 @@ class Boid:
         self.points = self.generate_points()
 
     def generate_points(self):
-        if BOID_TYPE == "exp":
-            return [
-                (self.size * math.cos(self.angle) + random.randint(-3, 3),
-                 self.size * math.sin(self.angle) + random.randint(-3, 3)),
-                (self.size * math.cos(self.angle + 2.5) + random.randint(-3, 3),
-                 self.size * math.sin(self.angle + 2.5) + random.randint(-3, 3)),
-                (self.size * math.cos(self.angle - 2.5) + random.randint(-3, 3),
-                 self.size * math.sin(self.angle - 2.5) + random.randint(-3, 3))
-            ]
         return []
 
     def limit_speed(self, max_speed):
@@ -102,7 +93,8 @@ class Boid:
 
                 for y in range(diameter):
                     for x in range(diameter):
-                        if (x - center_x) ** 2 + (y - center_y) ** 2 <= VISION_RADIUS ** 2:
+                        distance_sq = (x - center_x) ** 2 + (y - center_y) ** 2
+                        if VISION_RADIUS**2 - 2 * VISION_RADIUS <= distance_sq <= VISION_RADIUS**2:
                             shape[x, y] = 1
 
                 pixel_shader = displayio.Palette(2)
@@ -140,6 +132,60 @@ class Boid:
             pixel_shader = displayio.Palette(2)
             pixel_shader.make_transparent(0)
             pixel_shader[1] = self.color
+            triangle = displayio.TileGrid(shape, pixel_shader=pixel_shader)
+            triangle.x = max(0, min_x)
+            triangle.y = max(0, min_y)
+            display_group.append(triangle)
+            
+        elif BOID_TYPE == "square":
+            shape = displayio.Shape(width, height)
+            for y in range(height):
+                for x in range(width):
+                    shape[x, y] = 1
+
+            pixel_shader = displayio.Palette(2)
+            pixel_shader.make_transparent(0)
+            pixel_shader[1] = self.color
+            square = displayio.TileGrid(shape, pixel_shader=pixel_shader)
+            square.x = max(0, min_x)
+            square.y = max(0, min_y)
+            display_group.append(square)
+            
+        elif BOID_TYPE == "circle":
+            shape = displayio.Shape(width, height)
+            for y in range(height):
+                for x in range(width):
+                    if (x - width // 2)**2 + (y - height // 2)**2 <= (width // 2)**2:
+                        shape[x, y] = 1
+
+            pixel_shader = displayio.Palette(2)
+            pixel_shader.make_transparent(0)
+            pixel_shader[1] = self.color
+            circle = displayio.TileGrid(shape, pixel_shader=pixel_shader)
+            circle.x = max(0, min_x)
+            circle.y = max(0, min_y)
+            display_group.append(circle)
+            
+        elif BOID_TYPE == "gradient":
+            flock_size = len(self.cached_neighbors)
+            intensity = min(255, 50 + flock_size * 5)
+            color1, color2, color3 = self.color
+            flock_color = (
+            min(255, color1 + intensity),
+            min(255, color2 + intensity),
+            min(255, color3 + intensity)
+            )
+            
+            shape = displayio.Shape(width, height)
+            for y in range(height):
+                for x in range(width):
+                    px, py = x + min_x, y + min_y
+                    if self.point_in_triangle((px, py), points[0], points[1], points[2]):
+                        shape[x, y] = 1
+
+            pixel_shader = displayio.Palette(2)
+            pixel_shader.make_transparent(0)
+            pixel_shader[1] = flock_color
             triangle = displayio.TileGrid(shape, pixel_shader=pixel_shader)
             triangle.x = max(0, min_x)
             triangle.y = max(0, min_y)
@@ -270,24 +316,21 @@ async def main():
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_v:
                     SHOW_VISION = not SHOW_VISION
-                if event.key == pygame.K_g:
-                    if VISION_TYPE == "circle":
-                        VISION_TYPE = "square"
-                    elif VISION_TYPE == "square":
-                        VISION_TYPE = "lights"
-                    elif VISION_TYPE == "lights":
-                        VISION_TYPE = "circle"
                 elif event.key == pygame.K_c:
                     BOID_COLOR = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
                     for boid in boids: boid.color = BOID_COLOR
-                # elif event.key == pygame.K_b:
-                #     if BOID_TYPE == "triangle":
-                #         BOID_TYPE = "lights"
-                #     else:
-                #         BOID_TYPE = "triangle"
                 elif event.key == pygame.K_r:
                     for _ in range(random.randint(1, 100)):
                         boids.append(Boid(random.randint(1, WIDTH), random.randint(1, HEIGHT)))
+                elif event.key == pygame.K_b:
+                    if BOID_TYPE == "triangle":
+                        BOID_TYPE = "square"
+                    elif BOID_TYPE == "square":
+                        BOID_TYPE = "circle"
+                    elif BOID_TYPE == "circle":
+                        BOID_TYPE = "gradient"
+                    else:
+                        BOID_TYPE = "triangle"
                 elif event.key == pygame.K_MINUS:
                     for _ in range(random.randint(1, 100)):
                         if boids:
