@@ -16,7 +16,7 @@ screen = displayio.Group()
 display.show(screen)
 tileW= 32
 tileH = 32
-font = adafruit_bitmap_font.bitmap_font.load_font("C:\\Users\\carro\\Downloads\\courR12.bdf")
+font = adafruit_bitmap_font.bitmap_font.load_font("./courR12.bdf")
 
 #background
 background = displayio.OnDiskBitmap("background.bmp")
