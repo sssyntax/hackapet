@@ -1,8 +1,11 @@
+import adafruit_bitmap_font.bitmap_font
+import adafruit_bitmap_font.ttf
 import displayio
 from blinka_displayio_pygamedisplay import PyGameDisplay
 import pygame
 import time
 from adafruit_display_text import label
+import adafruit_bitmap_font
 import random
 #import terminalio
 
@@ -13,6 +16,7 @@ screen = displayio.Group()
 display.show(screen)
 tileW= 32
 tileH = 32
+font = adafruit_bitmap_font.bitmap_font.load_font("C:\\Users\\carro\\Downloads\\courR12.bdf")
 
 #background
 background = displayio.OnDiskBitmap("background.bmp")
@@ -56,9 +60,10 @@ def check_collision(sprite1,sprite2):
     )
     
 
-dead = displayio.OnDiskBitmap("end.bmp")
+dead = displayio.OnDiskBitmap("bleh.bmp")
 
 def died():
+    global highscore, hscoreshow
     screen.append(deadDis)
 
     for i in nuggies:
@@ -88,11 +93,11 @@ screen.append(bingus)
 deadDis = displayio.TileGrid(
         dead,
         pixel_shader=defaultbingus.pixel_shader,
-        width=1,
-        height=1,
+        width=2,
+        height=2,
         default_tile=0,
-        x=10,
-        y=5
+        x=0,
+        y=0
     )
 
 # begin game
@@ -100,7 +105,12 @@ speed = 6
 Game = True
 bingusstate = True
 
-score = 0 # terminalio doesnt work rn
+score = 0
+highscore = 0
+hscoreshow = label.Label(font, scale=1, text=f"Record:{highscore}", color=0x000000,y=18)
+screen.append(hscoreshow)
+scoreshow = label.Label(font, scale=1, text=f"Score:{score}", color=0x000000,y=50)
+screen.append(scoreshow)
 
 nuggies = []
 nugget = Droppings(displayio.OnDiskBitmap("nuggie.bmp"))
@@ -176,7 +186,13 @@ while True:
                 Game = False
                 died()
 
-    #scoreshow= label.Label(terminalio.FONT, scale=1, text=f"Score: {score}", color=0xFFFFFF) # terminalio doesnt work rn
-    #screen.append(scoreshow) # terminalio doesnt work rn
+    screen.remove(scoreshow)
+    scoreshow = label.Label(font, scale=1, text=f"Score:{score}", color=0x000000,y=5)
+    screen.append(scoreshow)
+
+    screen.remove(hscoreshow)
+    highscore = max(score,highscore)
+    hscoreshow = label.Label(font, scale=1, text=f"Record:{highscore}", color=0x000000,y=18)
+    screen.append(hscoreshow)
 
     time.sleep(0.1)
