@@ -109,7 +109,7 @@ score = 0
 highscore = 0
 hscoreshow = label.Label(font, scale=1, text=f"Record:{highscore}", color=0x000000,y=18)
 screen.append(hscoreshow)
-scoreshow = label.Label(font, scale=1, text=f"nuggies:{score}", color=0x000000,y=50)
+scoreshow = label.Label(font, scale=1, text=f"Nuggies:{score}", color=0x000000,y=50)
 screen.append(scoreshow)
 
 nuggies = []
