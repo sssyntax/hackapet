@@ -29,14 +29,16 @@ ferris_sprite = displayio.TileGrid(
 	tile_width=64,
 	tile_height=64,
 	default_tile=0,
-	x=(display.width - 64) // 2,
-	y=display.height - 64 - 10
+	x=32,
+	y=54
 )
 ferris_sprite[0] = 3
 
 frame = 0
 dialoge = 1
 question = None
+lives = 3
+life_progress = 0
 
 ferris_dialoge = [
 	"Hello,\nI'm Ferris!",
@@ -49,32 +51,90 @@ ferris_dialoge = [
 	("Say, do you\nknow Rust?", 3),
 	"You can learn\non the job!",
 	"What job?",
-	"You're going to\ndebug for me!",
+	"Youre going to\ndebug for me!",
 	("It's pretty\nsimple...", 1),
-	("Just choose\nthe correct answer!",2),
-	"Well, actually\nthe incorrect one",
-	"We are looking\nfor bugs after all!",
+	("Just choose\nthe bad code!",2),
+	"Let's fix some\n code!",
 	"Ooh, perfect\ntiming!",
-	("File Incoming\n",	0),
+	("File Incoming!",	0),
 	0,
 	1,
 	2,
 	3,
-	("Well, it looks\nlike you've got it!", 2),
-	("I'll be over here\n taking a nap", 1),
-	"Keep up the good\nwork!",
-	"I'll be over here\n taking a nap",
-	("zzz...", 0),
+	("it looks like\n you got it!", 2),
+	"more or less\n...",
+	"I'll be taking\na nap",
+	(32, -64),
+	("...", 8),
+	(32, 54),
+	"zzz...",
 	4,
+	5,
+	6,
+	7,
+	8, 
+	9, 
+	10,
+	(128, 54),
+	("How's it going\nover there?", 1),
+	(32, 54),
+	"Oh! you're\nstill here?",
+	"Most people\nleave by now",
+	("Impressive!", 2),
+	"Let's keep\nit up!",
+	"I'm going to\nget some coffee",
+	(-32, 54),
+	11,
+	12, 
+	13, 
+	14,
+	15,
+	16,
+	(32, 54),
+	("Hey, I'm back!", 4),
+	"Did you miss me?",
+	"Of course you did", 
+	"That was a\nshort file",
+	"I wonder what's\nnext?",
+	("...", 0),
+	("Uh oh, this\ncode is tricky", 1),
+	"Let's see if\nyou can get it",
+	"lifetimes\n great...",
+	17,
+	18,
+	("We're almost\nthere!", 2),
+	"I can see the\nend!",
+	"Watch out!\nPointers!",
+	19,
+	20,
+	21,
+	"Those were\nsome tough ones",
+	("I see the last one\ncoming up!", 3),
+	("oh...", 1),
+	"oh no...",
+	("oh no no no...", 6),
+	"oh no no no\nno...",
+	("oh no no no\nno no...", 7),
+	("OH GOODNESS\nGRAVIOUS!", 5),
+	"GOOD GRAVY\nNO!",
+	"GOOD LUCK!",
+	(32, 128),
+	"LET ME KNOW\nONCE IT'S OVER",
+	22,
+	("oh, well, um\n", 1),
+	(32, 54),
+	("that's it!", 3),
+	"thanks for\nthe help!",
+	"that was\nalmost relaxing",
 ]
 
 questions = [
 	{
-		"options": ["print(a)", "print!(a)"],
+		"options": ["print(\"a\");", "print!(\"a\");"],
 		"correct": 0
 	},
 	{
-		"options": ["a = 4", "let a = 4"],
+		"options": ["a = 4", "let a = 4;"],
 		"correct": 0,
 	},
 	{
@@ -88,6 +148,93 @@ questions = [
 	{
 		"options": ["let a: i32 = '4'","let a: i32 = 4"],
 		"correct": 0,
+	},
+	{
+		"options": ["for i in 0..10 {\n println!(\"{}\", i)}", "for i in 0..10 {\n println!(i)}"],
+		"correct": 0
+	},
+	{
+		"options": ["let mut x = 5;\nx=2", "let x = 5;\nx=2"],
+		"correct": 1
+	},
+	{
+		"options": ["let x: int = 5;", "let x: i32 = 5;"],
+		"correct": 0
+	},
+	{
+		"options": ["let mut y = 5;\n&y = 3", "let mut y = 5;\ny=3"],
+		"correct": 0
+	},
+	{
+		"options": ["let x = \"hello\";", "let x = 'hello';"],
+		"correct": 1
+	},
+	{
+
+		"options": ["let x = [1, 2, 3];", "let x = {1, 2, 3};"],
+		"correct": 1
+	},
+	#11-16
+	{
+		"options": ["let x = 5;", "let x == 5"],
+		"correct": 1
+	},
+	{
+		"options": ["if x = 5 {\nprint!(\"{}\", x); }", "if x == 5 {\nprint!(\"{}\", x); }"],
+		"correct": 0
+	},
+	{
+		"options": ["fn foo(x: i32) {\nprintln!(\"{}\", x); }", "fn foo(x) {\nprintln!(\"{}\", x); }"],
+		"correct": 1
+	},
+	{
+		"options": ["println!(\"Hello, world!)", "println!(\"Hello, world!\")"],
+		"correct": 0
+	},
+	{
+		"options": ["vec[1, 2, 3]","vec![1, 2, 3]"],
+		"correct": 0
+	},
+	{
+		"options": ["if x == 5 {\nprintln!(\"x is 5\"); }", "if x == 5 {\nprintln!(\"{} is 5\", x); }"],
+		"correct": 1
+	},
+	#17-18
+	{
+		"options": ["fn get_first<'a>\n(s: &'a str) -> str {\ns.split_whitespace()\n.next().unwrap()}", "fn get_first<'a>\n(s: &'a str) -> &'a str {\ns.split_whitespace()\n.next().unwrap()}"],
+		"correct": 0
+	},
+	{
+	"options": ["struct Foo<'a> \n{ bar: &'a str }","struct Foo \n{ bar: &str }"],
+	"correct": 0
+	},
+	#19-21
+	{
+		"options": [
+			"let x = 5; \nlet r = &x;",  
+			"let x = 5; \nlet r = &mut x;"  
+		],
+		"correct": 1
+	},
+	{
+		"options": [
+		"let mut x = 10;\n let r: *mut i32 = &mut x;\n *r += 1;",
+		"let mut x = 10;\n let r: &mut i32 = &mut x;\n *r += 1;"],
+		"correct": 0
+	},
+	{"options": [
+		"let x = Box::new(42);\n println!(\"{}\", *x);",
+		"let x = Box::new(42);\n let y = x;\n println!(\"{}\", *x);"
+	],
+	"correct": 1
+	},
+	#final boss 
+	{
+		
+		"options": [
+			"let (mut v, c) = \n([1, 0, n], |[l, _, r]:\n[_; 3]| (r - l >> 1) + l);", 
+			"let (mut v, c) = \n([1, 0, n], |[l, _, r]:\n[_; 3]| r - l >> 1) + l);"],
+		"correct": 0
 	}
 ]
 
@@ -108,9 +255,9 @@ bad_responses = [
 	"Keep trying!",
 	"Close!",
 	"Almost!",
-	"Did you read\nthe docs?",
+	"Did you read\nthe docs",
 	"watch the\nsyntax!",
-	"You're making\nme look like python",
+	"You're making\nme unsafe",
 ]
 
 def display_questions(dialoge, font):
@@ -121,30 +268,55 @@ def display_questions(dialoge, font):
 def clear_options():
 	option1_text.text = ""
 	option2_text.text = ""
+optionfont = bitmap_font.load_font("6x12.bdf")
+option1_text = label.Label(optionfont, text="", color=0x000200, line_spacing=0.75)
+option1_text.x = 6
+option1_text.y = 38
 
-option1_text = label.Label(bitmap_font.load_font("9x18.bdf"), text="", color=0x000200, line_spacing=0.75)
-option1_text.x = 2
-option1_text.y = 40
-
-option2_text = label.Label(bitmap_font.load_font("9x18.bdf"), text="", color=0x000200, line_spacing=0.75)
-option2_text.x = 2
+option2_text = label.Label(optionfont, text="", color=0x000200, line_spacing=0.75)
+option2_text.x = 6
 option2_text.y = 80
 
+def get_response(correct):
+	global dialoge
+	sleeping = dialoge in range(27, 37)
+	if correct:
+		if sleeping:
+			text_area.text = "zzz"+"z"*(dialoge-27)+"..."
+		else: 
+			text_area.text = random.choice(good_responses)
+	else:
+		if sleeping:
+			text_area.text = "ZZZ"+"Z"*(dialoge-27)+"!!!"
+		else:
+			text_area.text = random.choice(bad_responses)
 
 def handle_answer(answer, question):
+	global lives
+	global life_progress
 	if question is None:
 		return
 	global dialoge
 	if questions[question]["correct"] == answer:
-		text_area.text = random.choice(good_responses)
+		get_response(True)
+		life_progress += 1
+		if life_progress == 3 & lives < 3:
+			lives += 1
+			life_progress = 0
+			print(lives)
 		question = None
 	else:
-		text_area.text = random.choice(bad_responses)
+		get_response(False)
+		lives -= 1
 		question = None
-	dialoge += 1
+		#if lives == 0:
+			#lose() 
+		print(lives) # set the led to the number of lives
 	clear_options()
-	if ferris_dialoge[dialoge] is str:
-		text_area.text = ferris_dialoge[dialoge]
+	advance_dialoge()
+	next()
+
+
 
 ferris_text = ferris_dialoge[0]
 font = bitmap_font.load_font("9x18b.bdf")
@@ -172,22 +344,60 @@ splash.append(text_boxes_sprite)
 splash.append(option1_text)
 splash.append(option2_text)
 
-
 def advance_dialoge():
 	global dialoge
 	dialoge += 1
 	if dialoge >= len(ferris_dialoge):
-		dialoge = 0
+		win()
+
+def move_ferris(x, y):
+	while ferris_sprite.x != x or ferris_sprite.y != y:
+		ferris_sprite.x += (x - ferris_sprite.x) // abs(x - ferris_sprite.x) if ferris_sprite.x != x else 0
+		ferris_sprite.y += (y - ferris_sprite.y) // abs(y - ferris_sprite.y) if ferris_sprite.y != y else 0
+		display.refresh(minimum_frames_per_second=0)
+		pygame.time.wait(10)  # Add a small delay to make the movement visible
+def win():
+	clear_options()
+	text_area.text = "You did it!\nCongratulations!"
+	ferris_sprite[0] = 10
+	pygame.time.wait(3000)
+	pygame.quit()
+	exit()
+def lose():
+	clear_options()
+	text_boxes_sprite.y = -128
+	text_area.text = "You lost!\nFerris is sad!"
+	ferris_sprite[0] = 9
+	pygame.time.wait(3000)
+	pygame.quit()
+	exit()
+
+def next():
+	global question
+	if isinstance(ferris_dialoge[dialoge], str):
+		question = None
+		text_area.text = ferris_dialoge[dialoge]
+		advance_dialoge()
+	elif isinstance(ferris_dialoge[dialoge], tuple):
+		if isinstance(ferris_dialoge[dialoge][0], int):
+			move_ferris(ferris_dialoge[dialoge][0], ferris_dialoge[dialoge][1])
+			advance_dialoge()
+		else:
+			question = None
+			ferris_sprite[0] = ferris_dialoge[dialoge][1]
+			text_area.text = ferris_dialoge[dialoge][0]
+			advance_dialoge()
+	elif isinstance(ferris_dialoge[dialoge], int):
+		question = ferris_dialoge[dialoge]
+		display_questions(ferris_dialoge[dialoge], font)
+	elif ferris_dialoge[dialoge] == True:
+		win()
 
 while True:
 	if question is not None:
-		# show textbox
-		text_boxes_sprite.x = 0
 		text_boxes_sprite.y = 0
 		pass
 	else:
-		# hide textbox
-		text_boxes_sprite.x = 0
 		text_boxes_sprite.y = 128
 		pass
 	for event in pygame.event.get():
@@ -196,21 +406,7 @@ while True:
 			exit()
 		elif event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_z:
-				
-				if isinstance(ferris_dialoge[dialoge], str):
-					question = None
-					text_area.text = ferris_dialoge[dialoge]
-					advance_dialoge()
-					
-				elif isinstance(ferris_dialoge[dialoge], tuple):
-					question = None
-					ferris_sprite[0] = ferris_dialoge[dialoge][1]
-					text_area.text = ferris_dialoge[dialoge][0]
-					advance_dialoge()
-
-				elif isinstance(ferris_dialoge[dialoge], int):
-					question = ferris_dialoge[dialoge]
-					display_questions(ferris_dialoge[dialoge], font)
+				next()
 			if event.key == pygame.K_x:
 				handle_answer(0, question)
 			if event.key == pygame.K_c:
