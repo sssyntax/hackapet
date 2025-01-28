@@ -19,11 +19,11 @@ forest_background = displayio.OnDiskBitmap("bg.png")
 bg_sprite = displayio.TileGrid(forest_background, pixel_shader=forest_background.pixel_shader)
 splash.append(bg_sprite)
 
-sheet = displayio.OnDiskBitmap("kaonashi32.png")
+sheet = displayio.OnDiskBitmap("kaonashi.png")
 sheet_flipped = displayio.OnDiskBitmap("kaonashiflipped.png")
 
-tile_width = 32
-tile_height = 32
+tile_width = 10
+tile_height = 20
 
 sprite = displayio.TileGrid(
     sheet,
