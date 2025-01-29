@@ -14,9 +14,10 @@ background = displayio.OnDiskBitmap("bgl.bmp")
 
 bg_sprite = displayio.TileGrid(
 	background, 
-	pixel_shader=background.pixel_shader
+	pixel_shader=background.pixel_shader,
+	x=0,
+	y=-128
 )
-
 
 # add the ferris sprite here:
 ferris_sheet = displayio.OnDiskBitmap("ferris-sheet.bmp")
@@ -53,8 +54,8 @@ ferris_dialoge = [
 	"What job?",
 	"Youre going to\ndebug for me!",
 	("It's pretty\nsimple...", 1),
-	("Just choose\nthe bad code!",2),
-	"Let's fix some\n code!",
+	("Just spot\nthe bad code!",2),
+	"And select it",
 	"Ooh, perfect\ntiming!",
 	("File Incoming!",	0),
 	0,
@@ -75,57 +76,55 @@ ferris_dialoge = [
 	8, 
 	9, 
 	10,
-	(128, 54),
 	("How's it going\nover there?", 1),
-	(32, 54),
 	"Oh! you're\nstill here?",
 	"Most people\nleave by now",
 	("Impressive!", 2),
 	"Let's keep\nit up!",
 	"I'm going to\nget some coffee",
-	(-32, 54),
+	(-64, 54),
 	11,
 	12, 
 	13, 
 	14,
 	15,
 	16,
-	(32, 54),
 	("Hey, I'm back!", 4),
+	(32, 54),
 	"Did you miss me?",
-	"Of course you did", 
+	"Of course you\n did", 
 	"That was a\nshort file",
-	"I wonder what's\nnext?",
+	"I wonder \nwhat's next?",
 	("...", 0),
 	("Uh oh, this\ncode is tricky", 1),
 	"Let's see if\nyou can get it",
-	"lifetimes\n great...",
+	"lifetimes\ncan be tough",
 	17,
 	18,
 	("We're almost\nthere!", 2),
 	"I can see the\nend!",
-	"Watch out!\nPointers!",
+	"Look out, \nPointers!",
 	19,
 	20,
 	21,
-	"Those were\nsome tough ones",
-	("I see the last one\ncoming up!", 3),
+	"Those were\ntough ones",
+	("I see the last\none coming up!", 3),
 	("oh...", 1),
 	"oh no...",
 	("oh no no no...", 6),
 	"oh no no no\nno...",
 	("oh no no no\nno no...", 7),
 	("OH GOODNESS\nGRAVIOUS!", 5),
-	"GOOD GRAVY\nNO!",
+	"THIS IS\nNOT GOOD!",
 	"GOOD LUCK!",
-	(32, 128),
+	(128, 54),
 	"LET ME KNOW\nONCE IT'S OVER",
 	22,
 	("oh, well, um\n", 1),
 	(32, 54),
 	("that's it!", 3),
 	"thanks for\nthe help!",
-	"that was\nalmost relaxing",
+	"that was...\nalmost relaxing",
 ]
 
 questions = [
@@ -230,7 +229,6 @@ questions = [
 	},
 	#final boss 
 	{
-		
 		"options": [
 			"let (mut v, c) = \n([1, 0, n], |[l, _, r]:\n[_; 3]| (r - l >> 1) + l);", 
 			"let (mut v, c) = \n([1, 0, n], |[l, _, r]:\n[_; 3]| r - l >> 1) + l);"],
@@ -253,11 +251,11 @@ bad_responses = [
 	"Try again!",
 	"Oops!",
 	"Keep trying!",
-	"Close!",
 	"Almost!",
-	"Did you read\nthe docs",
-	"watch the\nsyntax!",
-	"You're making\nme unsafe",
+	"Did you read\nthe docs?",
+	"hey! watch the\nsyntax!",
+	"Close, but\nnot quite!",
+	"Did you read\bthe book?",
 ]
 
 def display_questions(dialoge, font):
@@ -309,8 +307,8 @@ def handle_answer(answer, question):
 		get_response(False)
 		lives -= 1
 		question = None
-		#if lives == 0:
-			#lose() 
+		if lives == 0:
+			lose() 
 		print(lives) # set the led to the number of lives
 	clear_options()
 	advance_dialoge()
@@ -318,9 +316,8 @@ def handle_answer(answer, question):
 
 
 
-ferris_text = ferris_dialoge[0]
 font = bitmap_font.load_font("9x18b.bdf")
-text_area = label.Label(font, text=ferris_text, color=0x000000, line_spacing=0.75)
+text_area = label.Label(font, text="", color=0x000000, line_spacing=0.75)
 text_area.x = 2
 text_area.y = 5
 
@@ -334,7 +331,7 @@ text_boxes_sprite = displayio.TileGrid(
 	tile_height=128,
 	default_tile=0,
 	x=0,
-	y=0
+	y=128
 )
 
 splash.append(bg_sprite)
@@ -358,7 +355,7 @@ def move_ferris(x, y):
 		pygame.time.wait(10)  # Add a small delay to make the movement visible
 def win():
 	clear_options()
-	text_area.text = "You did it!\nCongratulations!"
+	text_area.text = "You did it!\nCongrats!"
 	ferris_sprite[0] = 10
 	pygame.time.wait(3000)
 	pygame.quit()
@@ -393,22 +390,62 @@ def next():
 	elif ferris_dialoge[dialoge] == True:
 		win()
 
-while True:
-	if question is not None:
-		text_boxes_sprite.y = 0
-		pass
-	else:
-		text_boxes_sprite.y = 128
-		pass
-	for event in pygame.event.get():
-		if event.type == pygame.QUIT:
-			pygame.quit()
-			exit()
-		elif event.type == pygame.KEYDOWN:
-			if event.key == pygame.K_z:
-				next()
-			if event.key == pygame.K_x:
-				handle_answer(0, question)
-			if event.key == pygame.K_c:
-				handle_answer(1, question)
 
+def intro():
+		global lives
+		#set screen to black
+		# animate cargo run being typed out
+		ferris_sprite.x = -64
+		text_area.color = 0xFFFFFF
+		typed = 0
+		# wait for input
+		while True:
+			for event in pygame.event.get():
+				if event.type == pygame.QUIT:
+					pygame.quit()
+					exit()
+				elif event.type == pygame.KEYDOWN:
+						if typed <= len("cargo run"):
+							text_area.text += "cargo run "[typed]
+							display.refresh(minimum_frames_per_second=1)
+							typed += 1
+						elif typed > len("cargo_run"):
+							if event.key == pygame.K_c:
+								lives = 3
+								print(lives)
+							else:
+								lives = 999
+							break
+			else:
+					continue
+			break
+		text_area.y = 5
+		text_area.color = 0x000000
+		bg_sprite.y = 0
+		ferris_sprite.x = 32
+		text_area.text = ferris_dialoge[0]
+
+def main():
+	intro() 
+
+	while True:
+		
+		if question is not None:
+			text_boxes_sprite.y = 0
+			pass
+		else:
+			text_boxes_sprite.y = 128
+			pass
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				exit()
+			elif event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_z:
+					next()
+				if event.key == pygame.K_x:
+					handle_answer(0, question)
+				if event.key == pygame.K_c:
+					handle_answer(1, question)
+
+main()
