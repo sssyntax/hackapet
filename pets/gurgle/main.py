@@ -172,6 +172,35 @@ while True:
             elif event.key == buttons["right"]:
                 if menu.visible:
                     hide_text = not hide_text
+
+                    if hide_text:
+                        try:
+                            text_food = spaceMonoManager.get_current_group('food')
+                            text_happiness = spaceMonoManager.get_current_group('happiness')
+                            text_under_group.remove(text_food)
+                            text_under_group.remove(text_happiness)
+
+                            text_food = None
+                            text_happiness = None
+                        except Exception as e:
+                            print("Error in removing text", e)
+                    else:
+                        try:
+                            text_food = spaceMonoManager.get_current_group('food')
+                            text_happiness = spaceMonoManager.get_current_group('happiness')
+                            text_under_group.remove(text_food)
+                            text_under_group.remove(text_happiness)
+
+                            text_food = None
+                            text_happiness = None
+                        except Exception as e:
+                            print("Error in removing text", e)
+
+                        
+                        food_text = spaceMonoManager.create_text('food', f"food: {save_data['food']}/{config.FOOD_MAX}", 2, 2)
+                        happiness_text = spaceMonoManager.create_text('happiness', f"mood: {save_data['happiness']}/{config.HAPPINESS_MAX}", 2, 12)
+                        text_under_group.append(food_text)
+                        text_under_group.append(happiness_text)
                 else:
                     if save_data["special"] >= 1:
                         save_data["special"] -= 1
