@@ -13,6 +13,9 @@ class AnimationHandler:
             'frame_delay': frame_delay,
             'last_update': self.last_update
         }
+
+    def remove_animation(self, name):
+        del self.animations[name]
     
     def update(self):
         current_time = time.monotonic()

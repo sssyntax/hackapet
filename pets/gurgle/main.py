@@ -5,7 +5,7 @@ import pygame
 import random
 from blinka_displayio_pygamedisplay import PyGameDisplay
 
-from ui import bg, animationHandler, font, saveManager, UFO, Star, Menu, TextManager, Gurgle, RemovalManager, GurgleSurprise
+from ui import bg, animationHandler, font, saveManager, UFO, Star, Menu, TextManager, Gurgle, RemovalManager, GurgleSurprise, Pizza
 import config
 
 pygame.init()
@@ -29,6 +29,8 @@ buttons = {
 
 display = PyGameDisplay(width=128, height=128)
 anim = animationHandler.AnimationHandler()
+
+pizzaTexture = animationHandler
 
 # space mono, 10x15px, 10 font size
 spaceMono = font.Font("./assets/space-mono-10.bmp", 10, 15)
@@ -74,6 +76,8 @@ text_under_group = displayio.Group()
 ufos_group = displayio.Group()
 text_over_group = displayio.Group()
 menu_group = displayio.Group()
+glorp_group = displayio.Group()
+pizza_group = displayio.Group()
 
 main_group = displayio.Group()
 
@@ -81,6 +85,7 @@ menu = Menu.Menu(menu_group, spaceMono, save_data)
 
 
 stars = [Star.Star(star_group) for _ in range(20)]
+pizzas = []
 ufos = []
 gSurprise = GurgleSurprise.SpriteScroller()
 
@@ -100,10 +105,12 @@ main_group.append(text_under_group)
 main_group.append(gSurprise.group)
 main_group.append(text_over_group)
 main_group.append(menu_group)
+main_group.append(glorp_group)
+main_group.append(pizza_group)
 
 
 # sprites
-gurgle = Gurgle.Gurgle(main_group, 32, 128 - 64)
+gurgle = Gurgle.Gurgle(glorp_group, 32, 128 - 64)
 anim.add_animation('gurgle', gurgle.current_sprite, gurgle.frames, 0.1)
 
 deadFrames = 0
@@ -154,6 +161,9 @@ while True:
                                 text_under_group.remove(food_text)
                                 text_under_group.append(new_food_text)
                                 food_text = new_food_text
+
+                            pizza = Pizza.Pizza(pizza_group, anim, 32, 128 - 40)
+                            pizzas.append(pizza)
 
                             menu.update_save_data(save_data)
 
@@ -218,8 +228,18 @@ while True:
         trackedTime["happiness_track"] = time.monotonic()
 
     if current_time - trackedTime["frame_track"] >= 1/config.LOCK_FPS:
+
+        for pizza in pizzas[:]: 
+            if pizza.update():
+                try:
+                    safe_remove_from_group(pizza_group, pizza.sprite)
+                    pizzas.remove(pizza)
+                except Exception as e:
+                    print("Error in removing pizza", e)
+
         gSurprise.update()
         changed = gurgle.update(save_data["happiness"])
+        
 
         if changed:
             if gurgle.state == "happy":
@@ -332,7 +352,7 @@ while True:
         if random.uniform(0.0, 1.0) > 1 - config.SPECIAL_ITEM_CHANCE:
             save_data["special"] += 1
             
-            ufo = UFO.UFO(ufos_group)
+            ufo = UFO.UFO(ufos_group, anim)
             ufos.append(ufo)
             specialItemText = spaceMono.write_text("woah! ufo!", 8, 70)
             text_over_group.append(specialItemText)
