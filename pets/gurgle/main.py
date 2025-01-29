@@ -89,7 +89,9 @@ pizzas = []
 ufos = []
 gSurprise = GurgleSurprise.SpriteScroller()
 
-if not config.HIDE_TEXT:
+hide_text = config.HIDE_TEXT
+
+if not hide_text:
     food_text = spaceMonoManager.create_text('food', f"food: {save_data['food']}/{config.FOOD_MAX}", 2, 2)
     happiness_text = spaceMonoManager.create_text('happiness', f"mood: {save_data['happiness']}/{config.HAPPINESS_MAX}", 2, 12)
 
@@ -156,7 +158,7 @@ while True:
                             save_data["food"] = min(save_data["food"] + 3, config.FOOD_MAX)
                             save_data["food_have"] -= save_data["food"] - oldFood
 
-                            if not config.HIDE_TEXT:
+                            if not hide_text:
                                 new_food_text = spaceMonoManager.update_text('food', f"food: {save_data['food']}/{config.FOOD_MAX}")
                                 text_under_group.remove(food_text)
                                 text_under_group.append(new_food_text)
@@ -168,22 +170,25 @@ while True:
                             menu.update_save_data(save_data)
 
             elif event.key == buttons["right"]:
-                if save_data["special"] >= 1:
-                    save_data["special"] -= 1
-                    save_data["happiness"] = min(save_data["happiness"] + 3, config.HAPPINESS_MAX)
+                if menu.visible:
+                    hide_text = not hide_text
+                else:
+                    if save_data["special"] >= 1:
+                        save_data["special"] -= 1
+                        save_data["happiness"] = min(save_data["happiness"] + 3, config.HAPPINESS_MAX)
 
-                    if not config.HIDE_TEXT:
-                        current_happiness_text = spaceMonoManager.get_current_group('happiness')
-                        new_happiness_text = spaceMonoManager.update_text('happiness', f"mood: {save_data['happiness']}/{config.HAPPINESS_MAX}")
-                        
-                        if current_happiness_text:
-                            text_under_group.remove(current_happiness_text)
-                        text_under_group.append(new_happiness_text)
-                        happiness_text = new_happiness_text
+                        if not hide_text:
+                            current_happiness_text = spaceMonoManager.get_current_group('happiness')
+                            new_happiness_text = spaceMonoManager.update_text('happiness', f"mood: {save_data['happiness']}/{config.HAPPINESS_MAX}")
+                            
+                            if current_happiness_text:
+                                text_under_group.remove(current_happiness_text)
+                            text_under_group.append(new_happiness_text)
+                            happiness_text = new_happiness_text
 
 
-                    gSurprise.spawn(10, 15)
-                    menu.update_save_data(save_data)
+                        gSurprise.spawn(10, 15)
+                        menu.update_save_data(save_data)
 
 
     if time.monotonic() - trackedTime["food_track"] >= foodDecayTime and not gurgle.isDead:
@@ -197,7 +202,7 @@ while True:
 
         save_data["food"] = max(0, save_data["food"] - random.randint(foodMin, foodMax))
       
-        if not config.HIDE_TEXT:
+        if not hide_text:
             new_food_text = spaceMonoManager.update_text('food', f"food: {save_data['food']}/{config.FOOD_MAX}")
             try:
                 text_under_group.remove(food_text)
@@ -213,7 +218,7 @@ while True:
     if time.monotonic() - trackedTime["happiness_track"] >= random.uniform(config.HAPPINESS_TIME_DECAY["min"], config.HAPPINESS_TIME_DECAY["max"]) and not gurgle.isDead:
         save_data["happiness"] = max(0, save_data["happiness"] - random.randint(config.HAPPINESS_DECAY["min"], config.HAPPINESS_DECAY["max"]))
         
-        if not config.HIDE_TEXT:
+        if not hide_text:
             current_happiness_text = spaceMonoManager.get_current_group('happiness')
             new_happiness_text = spaceMonoManager.update_text('happiness', f"mood: {save_data['happiness']}/{config.HAPPINESS_MAX}")
             
@@ -259,7 +264,6 @@ while True:
 
         if save_data["food"] <= 0:
             # he dies! woop woop :(
-            print("gurgle died!")
             if gurgle.is_floating:
                 gurgle.toggle_float()
             gurgle.isDead = True
@@ -267,10 +271,9 @@ while True:
             if changed:
                 anim.add_animation('gurgle', gurgle.current_sprite, gurgle.frames, 0.1)
             deadFrames += 1
-            print(deadFrames)
             
 
-            if deadFrames >= config.LOCK_FPS * 7:
+            if deadFrames >= config.LOCK_FPS * 5:
                 save_data = {
                     "food": math.ceil(config.FOOD_MAX / 2),
                     "happiness": math.ceil(config.HAPPINESS_MAX / 2),
@@ -281,7 +284,7 @@ while True:
                 print("new save data", save_data)
 
 
-                if not config.HIDE_TEXT:
+                if not hide_text:
                     current_food_text = spaceMonoManager.get_current_group('food')
                     current_happiness_text = spaceMonoManager.get_current_group('happiness')
 
@@ -326,7 +329,7 @@ while True:
         trackedTime["float_track"] = time.monotonic()
         save_data["happiness"] = min(save_data["happiness"] + 1, config.HAPPINESS_MAX)
 
-        if not config.HIDE_TEXT:
+        if not hide_text:
             current_happiness_text = spaceMonoManager.get_current_group('happiness')
             new_happiness_text = spaceMonoManager.update_text('happiness', f"mood: {save_data['happiness']}/{config.HAPPINESS_MAX}")
             

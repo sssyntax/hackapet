@@ -9,6 +9,7 @@ gurgle is your alien cat! do not LET him die or else!!! he likes to see ufos, wh
 ⬆️ up arrow = menu (see stats!)
 ➡️ right arrow = use special item! (makes him happy)
 ⬆️ ⬅️ menu + left arrow = make gurgle float! (he becomes happier but his food decreases quicker!)
+⬆️ ➡️ menu + right arrow = toggle hiding text
 
 ## Config 👽👽
 
