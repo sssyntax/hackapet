@@ -240,9 +240,9 @@ def spawn_bird():
         birds.append(b)
 def init_start_screen():
     global info_label, hs_label
-    info_label = label.Label(font, text="Press SPACE to Start", color=WHITE, x=20, y=60)
-    hs_label   = label.Label(font, text=f"High Score: {high_score}", color=WHITE, x=20, y=80)
-
+    info_label = label.Label(font, text="Press SPACE to Start", color=WHITE, x=20, y=100)
+    hs_label   = label.Label(font, text=f"High Score: {high_score}", color=WHITE, x=20, y=115)
+    
     safe_insert(0, backgrounds[0], main_group)
     safe_append(info_label, main_group)
     safe_append(hs_label, main_group)
@@ -261,7 +261,7 @@ def init_playing_state():
     score = 0
     start_ticks = pygame.time.get_ticks()
     last_background_switch = pygame.time.get_ticks()
-    current_background_index = 2
+    current_background_index = 4  
 
     for b in birds:
         b.remove_from_group()
@@ -299,7 +299,7 @@ def switch_background_if_needed():
     now = pygame.time.get_ticks()
     if now - last_background_switch > background_switch_time:
         safe_remove(backgrounds[current_background_index], main_group)
-        current_background_index = 2 + ((current_background_index - 2 + 1) % 3)
+        current_background_index = 4 if current_background_index == 2 else current_background_index - 1
         safe_insert(0, backgrounds[current_background_index], main_group)
         last_background_switch = now
 
@@ -374,3 +374,4 @@ while running:
     display.refresh(minimum_frames_per_second=0)
 
 pygame.quit()
+
