@@ -12,9 +12,68 @@ display = PyGameDisplay(width=128, height=128)
 splash = displayio.Group()
 display.show(splash)
 
-forest_background = displayio.OnDiskBitmap("desert.bmp")
-bg_sprite = displayio.TileGrid(forest_background, pixel_shader=forest_background.pixel_shader)
+island_background = displayio.OnDiskBitmap("desert.bmp")
+bg_sprite = displayio.TileGrid(island_background, pixel_shader=island_background.pixel_shader)
 splash.append(bg_sprite)
+
+tile_width = 32
+tile_height = 32
+
+# Sprites
+
+dog_sheet = displayio.OnDiskBitmap("doggy.bmp")
+dog_sprite = displayio.TileGrid(
+    dog_sheet,
+    pixel_shader=dog_sheet.pixel_shader,
+    width=1,
+    height=1,
+    tile_width=tile_width,
+    tile_height=tile_height,
+    default_tile=0,
+    x=(display.width - tile_width) // 2,
+    y= display.height - tile_height - 10
+)
+splash.append(dog_sprite)
+
+
+crab_bitmap = displayio.OnDiskBitmap("crab.bmp")
+crab_width = 32
+crab_height = 32
+
+crab_sprite = displayio.TileGrid(
+    crab_bitmap,
+    pixel_shader=crab_bitmap.pixel_shader,
+    width=1,
+    height=1,
+    tile_width=crab_width,
+    tile_height=crab_height,
+    x=0,
+    y=(display.height - crab_height - 2)
+)
+splash.append(crab_sprite)
+
+crab_speed = 2
+crab_direction = 1
+
+
+
+def spawn_fireball():
+    x_position = random.randint(0, display.width - tile_width)
+    fireball = displayio.TileGrid(
+        fireball_bitmap,
+        pixel_shader=fireball_bitmap.pixel_shader,
+        width=1,
+        height=1,
+        tile_width=tile_width,
+        tile_height=tile_height,
+        x=x_position,
+        y=-tile_height
+    )
+    fireballs.append(fireball)
+    splash.append(fireball)
+
+
+grid_step = 4
 
 def display_found_it():
     yellow_background = displayio.Bitmap(display.width, display.height, 1)
@@ -35,23 +94,6 @@ def display_found_it():
     global game_over
     game_over = True
 
-dog_sheet = displayio.OnDiskBitmap("doggy.bmp")
-tile_width = 32
-tile_height = 32
-dog_sprite = displayio.TileGrid(
-    dog_sheet,
-    pixel_shader=dog_sheet.pixel_shader,
-    width=1,
-    height=1,
-    tile_width=tile_width,
-    tile_height=tile_height,
-    default_tile=0,
-    x=(display.width - tile_width) // 2,
-    y=display.height - tile_height - 10
-)
-splash.append(dog_sprite)
-
-grid_step = 4
 
 def get_random_treasure_position():
     x = random.randint(0, (display.width - tile_width) // grid_step) * grid_step
@@ -89,21 +131,6 @@ treasure_x, treasure_y = get_random_treasure_position()
 fireball_bitmap = displayio.OnDiskBitmap("fireball.bmp")
 fireballs = []
 
-def spawn_fireball():
-    x_position = random.randint(0, display.width - tile_width)
-    fireball = displayio.TileGrid(
-        fireball_bitmap,
-        pixel_shader=fireball_bitmap.pixel_shader,
-        width=1,
-        height=1,
-        tile_width=tile_width,
-        tile_height=tile_height,
-        x=x_position,
-        y=-tile_height
-    )
-    fireballs.append(fireball)
-    splash.append(fireball)
-
 def get_proximity():
     distance_x = abs(dog_sprite.x - treasure_x)
     distance_y = abs(dog_sprite.y - treasure_y)
@@ -127,25 +154,6 @@ def display_proximity_message(message):
                             y=display.height - 20)
     splash.append(text_area)
 
-crab_bitmap = displayio.OnDiskBitmap("crab.bmp")
-crab_width = 32
-crab_height = 32
-
-crab_sprite = displayio.TileGrid(
-    crab_bitmap,
-    pixel_shader=crab_bitmap.pixel_shader,
-    width=1,
-    height=1,
-    tile_width=crab_width,
-    tile_height=crab_height,
-    x=0,
-    y=(display.height - crab_height - 2)
-)
-splash.append(crab_sprite)
-
-crab_speed = 2
-crab_direction = 1
-
 frame = 0
 speed = 4
 game_over = False
@@ -166,13 +174,29 @@ while True:
 
         if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT] and dog_sprite.y < display.height - tile_height:
             dog_sprite.y += speed
-        if keys[pygame.K_UP] and dog_sprite.y > 0:
+        if keys[pygame.K_UP] and dog_sprite.y > 0 :
             dog_sprite.y -= speed
             splash.remove(dog_sprite)
             dog_wings_sheet = displayio.OnDiskBitmap("doggy_wings.bmp")
             dog_sprite = displayio.TileGrid(
                 dog_wings_sheet,
                 pixel_shader=dog_wings_sheet.pixel_shader,
+                width=1,
+                height=1,
+                tile_width=tile_width,
+                tile_height=tile_height,
+                default_tile=0,
+                x=dog_sprite.x,
+                y=dog_sprite.y
+            )
+            splash.append(dog_sprite)
+        
+        if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT] and dog_sprite.y > display.height - tile_height - 20:
+            dog_sprite.y += speed
+            splash.remove(dog_sprite)
+            dog_sprite = displayio.TileGrid(
+            dog_sheet,
+                pixel_shader=dog_sheet.pixel_shader,
                 width=1,
                 height=1,
                 tile_width=tile_width,
