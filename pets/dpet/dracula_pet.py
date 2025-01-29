@@ -55,8 +55,6 @@ splash.append(crab_sprite)
 crab_speed = 2
 crab_direction = 1
 
-
-
 def spawn_fireball():
     x_position = random.randint(0, display.width - tile_width)
     fireball = displayio.TileGrid(
@@ -158,6 +156,8 @@ frame = 0
 speed = 4
 game_over = False
 
+wings_frames = 0
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -172,7 +172,7 @@ while True:
         if keys[pygame.K_RIGHT] and dog_sprite.x < display.width - tile_width:
             dog_sprite.x += speed
 
-        if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT] and dog_sprite.y < display.height - tile_height:
+        if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT] and dog_sprite.y < display.height - tile_height - 10:
             dog_sprite.y += speed
         if keys[pygame.K_UP] and dog_sprite.y > 0 :
             dog_sprite.y -= speed
@@ -190,9 +190,12 @@ while True:
                 y=dog_sprite.y
             )
             splash.append(dog_sprite)
+
         
-        if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT] and dog_sprite.y > display.height - tile_height - 20:
-            dog_sprite.y += speed
+        if keys[pygame.K_LEFT] or keys[pygame.K_RIGHT] or keys[pygame.K_UP]:
+            dog_sprite[0] = wings_frames
+
+        if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT] and dog_sprite.y > display.height - tile_height - 20 and dog_sprite.y < display.height - tile_height:
             splash.remove(dog_sprite)
             dog_sprite = displayio.TileGrid(
             dog_sheet,
@@ -255,5 +258,7 @@ while True:
 
     dog_sprite[0] = frame
     frame = (frame + 1) % (dog_sheet.width // tile_width)
-
+    wings_frames = (wings_frames + 1) % 3
+    
     time.sleep(0.1)
+
