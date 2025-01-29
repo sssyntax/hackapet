@@ -341,8 +341,14 @@ async def main():
                         BOID_COLOR = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
                         for boid in boids: boid.color = BOID_COLOR
                     elif event.key == pygame.K_r:
-                        for _ in range(random.randint(1, 100)):
-                            boids.append(Boid(random.randint(1, WIDTH), random.randint(1, HEIGHT)))
+                        if hasattr(event, 'last_click_time') and pygame.time.get_ticks() - event.last_click_time < 500:
+                            for _ in range(random.randint(1, 20)):
+                                if boids:
+                                    boids.pop()
+                        else:
+                            for _ in range(random.randint(1, 10)):
+                                boids.append(Boid(random.randint(1, WIDTH), random.randint(1, HEIGHT)))
+                        event.last_click_time = pygame.time.get_ticks()
                     elif event.key == pygame.K_b:
                         if BOID_TYPE == "triangle":
                             BOID_TYPE = "square"
