@@ -328,7 +328,7 @@ async def main():
             elif event.type == pygame.KEYDOWN:
                 if DISPLAY_START_SCREEN:
                     DISPLAY_START_SCREEN = False
-                    new_bg = displayio.OnDiskBitmap("/Users/aram/Documents/Code/boid/BG.bmp")
+                    new_bg = displayio.OnDiskBitmap("BG.bmp")
                     new_bg_sprite = displayio.TileGrid(new_bg, pixel_shader=new_bg.pixel_shader)
                     if bg_sprite in display_group:
                         display_group.remove(bg_sprite)
