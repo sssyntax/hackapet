@@ -63,7 +63,7 @@ progress_bar = displayio.TileGrid(progress_bar_bitmap, pixel_shader=progress_bar
 progress_bar.y = 8
 splash.append(progress_bar)
 
-FONT = bitmap_font.load_font("TenStamps-15.bdf")
+FONT = bitmap_font.load_font("TenStamps-16.bdf")
 
 x_offset = 0
 current_bg = 0
@@ -82,6 +82,7 @@ platform_on_screen = False
 game_over = False
 score = 0
 score_label = None
+restart_label = None
 
 while True:
     for event in pygame.event.get():
@@ -90,9 +91,11 @@ while True:
             exit()
     if progress_bar_current_width >= 256:
         game_over = True
-        if score_label is None:
+        if score_label is None or restart_label is None:
             score_label = label.Label(FONT, text=f"Score: \n{score}", color=0xFFFFFF, x=20, y=30)
+            restart_label = label.Label(FONT, text="¸Restart", color=0xFFFFFF, x=6, y=80)
             splash.append(score_label)
+            splash.append(restart_label)
         train_speed = 0
 
     x_offset -= train_speed
@@ -139,17 +142,20 @@ while True:
                 train_speed += 1
         elif keys[pygame.K_DOWN]:
             if 100 > platform_x > -50 and train_speed == 0:
-                progress_bar_current_width = progress_bar_current_width - 10
+                progress_bar_current_width = max(128, progress_bar_current_width - 10)
         elif keys[pygame.K_UP]: # DEBUG ONLY - remove in final version
             progress_bar_current_width = 255
     else:
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT] or keys[pygame.K_RIGHT] or keys[pygame.K_DOWN]:
+        if keys[pygame.K_DOWN]:
             score = 0
             progress_bar_current_width = 128
             game_over = False
             score_label.hidden = True
+            restart_label.hidden = True
             splash.remove(score_label)
+            splash.remove(restart_label)
             score_label = None
+            restart_label = None
 
     time.sleep(0.1)
