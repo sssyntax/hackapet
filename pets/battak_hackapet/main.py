@@ -31,9 +31,10 @@ mid_beat_bitmap = load_bitmap("beat_mid.bmp")
 right_beat_bitmap = load_bitmap("beat_right.bmp")
 line_map = load_bitmap("line.bmp")
 line2_map = load_bitmap("line2.bmp")
+welcome_bitmap = load_bitmap("welcome.bmp")
 
 # Ensure all bitmaps are loaded
-if not all([cat_sheet, left_beat_bitmap, mid_beat_bitmap, right_beat_bitmap, line_map, line2_map]):
+if not all([cat_sheet, left_beat_bitmap, mid_beat_bitmap, right_beat_bitmap, line_map, line2_map, welcome_bitmap]):
     print("Error: One or more bitmap files are missing.")
     pygame.quit()
     exit()
@@ -63,9 +64,8 @@ cat_sprite = displayio.TileGrid(
     tile_width=cat_sheet.width // 6,  # Assuming 6 frames in the sprite sheet
     tile_height=cat_sheet.height,
     x=(display.width - cat_sheet.width // 6) // 2,
-    y=display.height - cat_sheet.height - 10
+    y=display.height - cat_sheet.height - 40
 )
-splash.append(cat_sprite)
 
 # Load beat bitmaps
 left_beat_bitmap = displayio.OnDiskBitmap("beat_left.bmp")
@@ -78,7 +78,7 @@ score_sound = pygame.mixer.Sound("snare.wav")
 
 # Load and play the background song
 pygame.mixer.music.load("oiia.mp3")
-pygame.mixer.music.play()  # Play the song once
+
 
 # Variables to control the rate of beats being spawned and speed of beats falling down
 spawn_interval = 0.5  # Time interval between spawns in seconds
@@ -116,7 +116,6 @@ def spawn_beat():
     beats.append(beat)
     splash.append(beat)
     total_beats_spawned += 1
-    change_background_color()  # Change background color on each beat spawn
 
 # Load the bitmap image of beatline
 line_map = displayio.OnDiskBitmap("line.bmp")
@@ -132,7 +131,6 @@ linemap = displayio.TileGrid(
     x=(display.width - line_map.width) // 2,
     y=display.height - line_map.height - 20
 )
-splash.append(linemap)
 
 # Create a TileGrid to hold the second line image
 line2map = displayio.TileGrid(
@@ -216,6 +214,38 @@ def main_loop():
 
         # Delay to control frame rate
         time.sleep(0.1)
+
+# Display the welcome screen
+welcome_sprite = displayio.TileGrid(
+    welcome_bitmap,
+    pixel_shader=welcome_bitmap.pixel_shader,
+    width=1,
+    height=1,
+    tile_width=welcome_bitmap.width,
+    tile_height=welcome_bitmap.height,
+    x=(display.width - welcome_bitmap.width) // 2,
+    y=(display.height - welcome_bitmap.height) // 2
+)
+splash.append(welcome_sprite)
+display.refresh()
+
+# Wait for the down key press to start the game
+start_game = False
+while not start_game:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_DOWN:
+                start_game = True
+
+# Remove the welcome screen and start the game
+splash.remove(welcome_sprite)
+splash.append(cat_sprite)
+splash.append(linemap)
+splash.append(line2map)
+pygame.mixer.music.play()
 
 while True:
     running = True
