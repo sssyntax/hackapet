@@ -84,6 +84,26 @@ score = 0
 score_label = None
 restart_label = None
 
+title_label1 = label.Label(FONT, text="Train", color=0xFFFFFF, x=28, y=30)
+title_label2 = label.Label(FONT, text="Game", color=0xFFFFFF, x=36, y=46)
+start_label = label.Label(FONT, text="¸Start", color=0xFFFFFF, x=21, y=80)
+splash.append(start_label)
+splash.append(title_label1)
+splash.append(title_label2)
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            exit()
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_DOWN]:
+        splash.remove(start_label)
+        splash.remove(title_label1)
+        splash.remove(title_label2)
+        break
+    time.sleep(0.1)
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
