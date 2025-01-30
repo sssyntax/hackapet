@@ -65,6 +65,9 @@ splash.append(progress_bar)
 
 FONT = bitmap_font.load_font("TenStamps-16.bdf")
 
+bar_label = label.Label(FONT, text="HP", color=0xFFFFFF, x=1, y=11)
+splash.append(bar_label)
+
 x_offset = 0
 current_bg = 0
 next_bg = 1
@@ -83,6 +86,7 @@ game_over = False
 score = 0
 score_label = None
 restart_label = None
+
 
 title_label1 = label.Label(FONT, text="Train", color=0xFFFFFF, x=28, y=30)
 title_label2 = label.Label(FONT, text="Game", color=0xFFFFFF, x=36, y=46)
@@ -170,6 +174,7 @@ while True:
         if keys[pygame.K_DOWN]:
             score = 0
             progress_bar_current_width = 128
+            train_speed = 1
             game_over = False
             score_label.hidden = True
             restart_label.hidden = True
