@@ -8,12 +8,11 @@ import random
 
 pygame.init()
 
-# scale currently only works at scale = 1
 scale = 1
-display_width = 128 * scale
-display_height = 128 * scale
+display_width = 128
+display_height = 128
 
-display = PyGameDisplay(width=display_width, height=display_height)
+display = PyGameDisplay(width=display_width * scale, height=display_height * scale)
 splash = displayio.Group(scale=scale)
 
 display.show(splash)
@@ -25,8 +24,8 @@ bg_sprite = displayio.TileGrid(
     pixel_shader=bg_sheet.pixel_shader,
     width=1,
     height=1,
-    tile_width=display.width // scale,
-    tile_height=display.height // scale,
+    tile_width=display_width,
+    tile_height=display_height,
     default_tile=3 # default bg
 )
 
@@ -53,7 +52,7 @@ button_cyan_sprite = displayio.TileGrid(
     tile_height=color_button_height,
     default_tile=3, # selected by default
     x=color_button_spacing,
-    y=display.height - color_button_height - color_button_spacing   
+    y=display_height - color_button_height - color_button_spacing
 )
 
 splash.append(button_cyan_sprite)
@@ -70,8 +69,8 @@ button_magenta_sprite = displayio.TileGrid(
     tile_width=color_button_width,
     tile_height=color_button_height,
     default_tile=0,
-    x=(display.width - color_button_width) // 2,
-    y=display.height - color_button_height - color_button_spacing    
+    x=(display_width - color_button_width) // 2,
+    y=display_height - color_button_height - color_button_spacing    
 )
 
 splash.append(button_magenta_sprite)
@@ -88,8 +87,8 @@ button_yellow_sprite = displayio.TileGrid(
     tile_width=color_button_width,
     tile_height=color_button_height,
     default_tile=0,
-    x=display.width - color_button_width - color_button_spacing,
-    y=display.height - color_button_height - color_button_spacing    
+    x=display_width - color_button_width - color_button_spacing,
+    y=display_height - color_button_height - color_button_spacing    
 )
 
 splash.append(button_yellow_sprite)
@@ -125,7 +124,7 @@ colors = [Color(0, 0, 0, 1), # yellow
 mixed_color_width = 122
 mixed_color_height = 6
 mixed_color_spacing = 3
-mixed_color_y = display.height - color_button_height - color_button_spacing - mixed_color_height - mixed_color_spacing
+mixed_color_y = display_height - color_button_height - color_button_spacing - mixed_color_height - mixed_color_spacing
 
 mixed_color_sheet = displayio.OnDiskBitmap("img/mixed-colors.bmp")
 
@@ -137,7 +136,7 @@ mixed_color_sprite = displayio.TileGrid(
     tile_width=mixed_color_width,
     tile_height=mixed_color_height,
     default_tile=13,
-    x=(display.width - mixed_color_width) // 2,
+    x=(display_width - mixed_color_width) // 2,
     y=mixed_color_y
 )
 
@@ -160,7 +159,7 @@ button_arrow_0_sprite = displayio.TileGrid(
     tile_height=arrow_button_height,
     default_tile=0,
     x=arrow_button_spacing_h,
-    y=display.height - color_button_height - color_button_spacing - mixed_color_height - mixed_color_spacing - arrow_button_height - arrow_button_spacing_v
+    y=display_height - color_button_height - color_button_spacing - mixed_color_height - mixed_color_spacing - arrow_button_height - arrow_button_spacing_v
 )
 
 splash.append(button_arrow_0_sprite)
@@ -173,8 +172,8 @@ button_arrow_1_sprite = displayio.TileGrid(
     tile_width=arrow_button_width,
     tile_height=arrow_button_height,
     default_tile=0,
-    x=(display.width - arrow_button_width) // 2,
-    y=display.height - color_button_height - color_button_spacing - mixed_color_height - mixed_color_spacing - arrow_button_height - arrow_button_spacing_v
+    x=(display_width - arrow_button_width) // 2,
+    y=display_height - color_button_height - color_button_spacing - mixed_color_height - mixed_color_spacing - arrow_button_height - arrow_button_spacing_v
 )
 
 splash.append(button_arrow_1_sprite)
@@ -187,8 +186,8 @@ button_arrow_2_sprite = displayio.TileGrid(
     tile_width=arrow_button_width,
     tile_height=arrow_button_height,
     default_tile=0,
-    x=display.width - arrow_button_width - arrow_button_spacing_h,
-    y=display.height - color_button_height - color_button_spacing - mixed_color_height - mixed_color_spacing - arrow_button_height - arrow_button_spacing_v
+    x=display_width - arrow_button_width - arrow_button_spacing_h,
+    y=display_height - color_button_height - color_button_spacing - mixed_color_height - mixed_color_spacing - arrow_button_height - arrow_button_spacing_v
 )
 
 splash.append(button_arrow_2_sprite)
@@ -219,14 +218,14 @@ score_label = label.Label(
     font, 
     text=str(score), 
     color=0xFFFFFF, 
-    x=display.width - 10 - len(str(score)) * 8, 
+    x=display_width - 10 - len(str(score)) * 8, 
     y=10)
 
 score_label_shadow = label.Label(
     font, 
     text=str(score), 
     color=0x36393C, 
-    x=(display.width - 10 - len(str(score)) * 8) + 1, 
+    x=(display_width - 10 - len(str(score)) * 8) + 1, 
     y=11)
 
 splash.append(score_label_shadow)
@@ -240,8 +239,8 @@ start_screen_sprite = displayio.TileGrid(
     pixel_shader=start_screen_sheet.pixel_shader,
     width=1,
     height=1,
-    tile_width=display.width // scale,
-    tile_height=display.height // scale,
+    tile_width=display_width,
+    tile_height=display_height,
     default_tile=0
 )
 
@@ -370,9 +369,9 @@ def spawn_block():
     if column == 0:
         x_pos = block_spacing
     elif column == 1:
-        x_pos = (display.width - block_width) // 2
+        x_pos = (display_width - block_width) // 2
     else:
-        x_pos = display.width - block_width - block_spacing
+        x_pos = display_width - block_width - block_spacing
     
     color_id = random.randint(0, 12)
 
@@ -387,8 +386,6 @@ def spawn_block():
         x=x_pos,
         y=-block_height
     )
-    print("color id: " + str(color_id))
-    print("column: " + str(column) + "\n")
 
     blocks.append(Block(color_id, column, block_sprite))
     splash.insert(2, block_sprite) # insert 2 layers up (above bg & score)
@@ -421,8 +418,8 @@ def display_game_over():
         tile_width=game_over_popup_width,
         tile_height=game_over_popup_height,
         default_tile=0,
-        x=(display.width - game_over_popup_width) // 2,  
-        y=(display.height - game_over_popup_height) // 2 
+        x=(display_width - game_over_popup_width) // 2,  
+        y=(display_height - game_over_popup_height) // 2 
     )
 
     splash.append(game_over_popup_sprite)
@@ -439,16 +436,16 @@ def display_game_over_text():
         font, 
         text=text, 
         color=0x36393C, 
-        x=(display.width - text_width) // 2, 
-        y=display.height // 2 - (display_height // 10))
+        x=(display_width - text_width) // 2, 
+        y=display_height // 2 - (display_height // 10))
 
     global game_over_scores_shadow
     game_over_scores_shadow = label.Label(
         font, 
         text=text, 
         color=0xD2C0BB, 
-        x=(display.width - text_width) // 2 + 1, 
-        y=display.height // 2 - (display_height // 10) + 1)
+        x=(display_width - text_width) // 2 + 1, 
+        y=display_height // 2 - (display_height // 10) + 1)
 
     splash.append(game_over_scores_shadow)
     splash.append(game_over_scores)
@@ -540,7 +537,7 @@ while True:
 
     # update start screen animation only on delay cycles
     if has_started == False and frame % anim_delay == 0: 
-        start_screen_sprite[0] = (frame // anim_delay) % ((start_screen_sheet.width // display.width) * scale)
+        start_screen_sprite[0] = (frame // anim_delay) % (start_screen_sheet.width // start_screen_sprite.tile_width)
     
     frame += 1
 
@@ -553,7 +550,7 @@ while True:
 
         for block in blocks:
             block.block_sprite.y += block_speed
-            if block.block_sprite.y > display.height:
+            if block.block_sprite.y > display_height:
                 splash.remove(block.block_sprite)
                 blocks.remove(block)
             
