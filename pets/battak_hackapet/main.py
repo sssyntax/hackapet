@@ -30,9 +30,10 @@ left_beat_bitmap = load_bitmap("beat_left.bmp")
 mid_beat_bitmap = load_bitmap("beat_mid.bmp")
 right_beat_bitmap = load_bitmap("beat_right.bmp")
 line_map = load_bitmap("line.bmp")
+line2_map = load_bitmap("line2.bmp")
 
 # Ensure all bitmaps are loaded
-if not all([cat_sheet, left_beat_bitmap, mid_beat_bitmap, right_beat_bitmap, line_map]):
+if not all([cat_sheet, left_beat_bitmap, mid_beat_bitmap, right_beat_bitmap, line_map, line2_map]):
     print("Error: One or more bitmap files are missing.")
     pygame.quit()
     exit()
@@ -59,9 +60,9 @@ cat_sprite = displayio.TileGrid(
     pixel_shader=cat_sheet.pixel_shader,
     width=1,
     height=1,
-    tile_width=cat_sheet.width // 8,  # Assuming 8 frames in the sprite sheet
+    tile_width=cat_sheet.width // 6,  # Assuming 6 frames in the sprite sheet
     tile_height=cat_sheet.height,
-    x=(display.width - cat_sheet.width // 8) // 2,
+    x=(display.width - cat_sheet.width // 6) // 2,
     y=display.height - cat_sheet.height - 10
 )
 splash.append(cat_sprite)
@@ -90,7 +91,7 @@ collision_tolerance = 10  # Tolerance for collision detection
 animation_interval = 0.1  # Time interval between animation frames in seconds
 last_animation_time = time.time()
 current_frame = 0
-num_frames = 8  # Number of frames in the sprite sheet
+num_frames = 6  # Number of frames in the sprite sheet
 
 # Function to spawn a random beat
 def spawn_beat():
@@ -129,13 +130,27 @@ linemap = displayio.TileGrid(
     tile_width=line_map.width,  # Ensure this matches the bitmap's width
     tile_height=line_map.height,  # Ensure this matches the bitmap's height
     x=(display.width - line_map.width) // 2,
-    y=display.height - line_map.height - 10
+    y=display.height - line_map.height - 20
 )
 splash.append(linemap)
 
-# Create a label to display the final score
-score_label = label.Label(font, text="", color=0xFFFFFF, x=10, y=10)
+# Create a TileGrid to hold the second line image
+line2map = displayio.TileGrid(
+    line2_map,
+    pixel_shader=line2_map.pixel_shader,
+    width=1,
+    height=1,
+    tile_width=line2_map.width,  # Ensure this matches the bitmap's width
+    tile_height=line2_map.height,  # Ensure this matches the bitmap's height
+    x=(display.width - line2_map.width) // 2,
+    y=display.height - 8
+)
+splash.append(line2map)
+
+# Create a label to display the score during the game
+score_label = label.Label(font, text=f"Score: {score}", color=0xFFFFFF, x=10, y=10)
 splash.append(score_label)
+
 
 def main_loop():
     global running, paused, last_spawn_time, score, total_beats_spawned, last_animation_time, current_frame
@@ -162,7 +177,7 @@ def main_loop():
                     print(f"Key pressed: {pygame.key.name(event.key)}")  # Print the key pressed for debugging
                     correct_key_pressed = False
                     for beat in beats:
-                        if abs(beat.y - linemap.y) <= collision_tolerance:
+                        if abs(beat.y - linemap.y) <= collision_tolerance or abs(beat.y - line2map.y) <= collision_tolerance:
                             if (event.key == pygame.K_LEFT and beat.x == 9) or \
                                (event.key == pygame.K_DOWN and beat.x == 61) or \
                                (event.key == pygame.K_RIGHT and beat.x == 113):
@@ -173,7 +188,7 @@ def main_loop():
                                 print(f"Score: {score}")
                                 correct_key_pressed = True
                                 break
-                    if not correct_key_pressed:
+                    if not correct_key_pressed and abs(beat.y - line2map.y) > collision_tolerance:
                         score -= 1
                         print(f"Score: {score}")
 
@@ -214,9 +229,11 @@ while True:
     splash.append(background_sprite)
     splash.append(cat_sprite)
     splash.append(linemap)
+    splash.append(line2map)
     pygame.mixer.music.rewind()
     pygame.mixer.music.play()
 
+    time.sleep(5)  # Delay
     main_loop()
 
     # Clear the screen and display the final score
@@ -239,7 +256,18 @@ while True:
                 elif event.key == pygame.K_LEFT:
                     replay = False
 
-    if not replay:
+    if replay:
+        # Re-add elements to the group
+        cat_sprite[0] = 0
+        splash = displayio.Group()
+        display.show(splash)
+        splash.append(background_sprite)
+        splash.append(cat_sprite)
+        splash.append(linemap)
+        splash.append(line2map)
+        pygame.mixer.music.rewind()
+        pygame.mixer.music.play()
+    else:
         break
 
 pygame.quit()
