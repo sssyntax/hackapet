@@ -286,7 +286,7 @@ async def main():
     display.show(display_group)
     running = True
     grid = Grid(VISION_RADIUS)
-    bg = displayio.OnDiskBitmap("/Users/aram/Documents/Code/boid/startScreenBG.bmp")
+    bg = displayio.OnDiskBitmap("startScreenBG.bmp")
     bg_sprite = displayio.TileGrid(
         bg, 
         pixel_shader=bg.pixel_shader
