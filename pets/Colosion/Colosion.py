@@ -8,8 +8,14 @@ import random
 
 pygame.init()
 
-display = PyGameDisplay(width=128, height=128)
-splash = displayio.Group()
+# scale currently only works at scale = 1
+scale = 1
+display_width = 128 * scale
+display_height = 128 * scale
+
+display = PyGameDisplay(width=display_width, height=display_height)
+splash = displayio.Group(scale=scale)
+
 display.show(splash)
 # MARK: bg
 bg_sheet = displayio.OnDiskBitmap("img/background.bmp")
@@ -19,8 +25,8 @@ bg_sprite = displayio.TileGrid(
     pixel_shader=bg_sheet.pixel_shader,
     width=1,
     height=1,
-    tile_width=display.width,
-    tile_height=display.height,
+    tile_width=display.width // scale,
+    tile_height=display.height // scale,
     default_tile=3 # default bg
 )
 
@@ -195,7 +201,7 @@ class Block:
         self.column = column # 0, 1, or 2
         self.block_sprite = block_sprite
 
-blocks = []
+blocks = [] 
 
 block_width = 37
 block_height = 10
@@ -205,14 +211,9 @@ block_sheet = displayio.OnDiskBitmap("img/color-blocks.bmp")
 
 # MARK: score label
 score = 0
+best_score = 0
 
 font = bitmap_font.load_font("font/helvR12.bdf")
-score_label_shadow = label.Label(
-    font, 
-    text=str(score), 
-    color=0x36393C, 
-    x=(display.width - 10 - len(str(score)) * 8) + 1, 
-    y=11)
 
 score_label = label.Label(
     font, 
@@ -220,6 +221,13 @@ score_label = label.Label(
     color=0xFFFFFF, 
     x=display.width - 10 - len(str(score)) * 8, 
     y=10)
+
+score_label_shadow = label.Label(
+    font, 
+    text=str(score), 
+    color=0x36393C, 
+    x=(display.width - 10 - len(str(score)) * 8) + 1, 
+    y=11)
 
 splash.append(score_label_shadow)
 splash.append(score_label)
@@ -232,8 +240,8 @@ start_screen_sprite = displayio.TileGrid(
     pixel_shader=start_screen_sheet.pixel_shader,
     width=1,
     height=1,
-    tile_width=display.width,
-    tile_height=display.height,
+    tile_width=display.width // scale,
+    tile_height=display.height // scale,
     default_tile=0
 )
 
@@ -379,6 +387,9 @@ def spawn_block():
         x=x_pos,
         y=-block_height
     )
+    print("color id: " + str(color_id))
+    print("column: " + str(column) + "\n")
+
     blocks.append(Block(color_id, column, block_sprite))
     splash.insert(2, block_sprite) # insert 2 layers up (above bg & score)
 
@@ -387,16 +398,71 @@ def is_block_collided(block):
     if block.block_sprite.y > mixed_color_y - mixed_color_height * 2:
         return block.block_sprite.y > mixed_color_y - mixed_color_height * 2
     
-# MARK: score label fcns
+# MARK: score label fcn
 def update_score_label(score):
     score_label.text = str(score)
     score_label_shadow.text = str(score)
+
+# MARK: game over
+
+# displays game over sprite, final score, and high score
+def display_game_over():
+    game_over_popup = displayio.OnDiskBitmap("img/game-over.bmp")
+
+    game_over_popup_width = 108
+    game_over_popup_height = 53
+
+    global game_over_popup_sprite
+    game_over_popup_sprite = displayio.TileGrid(
+        game_over_popup,
+        pixel_shader=game_over_popup.pixel_shader,
+        width=1,
+        height=1,
+        tile_width=game_over_popup_width,
+        tile_height=game_over_popup_height,
+        default_tile=0,
+        x=(display.width - game_over_popup_width) // 2,  
+        y=(display.height - game_over_popup_height) // 2 
+    )
+
+    splash.append(game_over_popup_sprite)
+    display_game_over_text()
+
+def display_game_over_text():
+    text = f"{score}  (BEST: {best_score})"
+
+    temp_label = label.Label(font, text=text)
+    text_width = temp_label.bounding_box[2]
+
+    global game_over_scores
+    game_over_scores = label.Label(
+        font, 
+        text=text, 
+        color=0x36393C, 
+        x=(display.width - text_width) // 2, 
+        y=display.height // 2 - (display_height // 10))
+
+    global game_over_scores_shadow
+    game_over_scores_shadow = label.Label(
+        font, 
+        text=text, 
+        color=0xD2C0BB, 
+        x=(display.width - text_width) // 2 + 1, 
+        y=display.height // 2 - (display_height // 10) + 1)
+
+    splash.append(game_over_scores_shadow)
+    splash.append(game_over_scores)
+
+def hide_game_over_popup():
+    splash.remove(game_over_popup_sprite)
+    splash.remove(game_over_scores)
+    splash.remove(game_over_scores_shadow)
 
 # MARK: gameplay
 frame = 0
 anim_delay = 5
 has_started = False
-game_over = False
+is_game_over = False
 curr_selected_color_button = button_cyan
 num_color_portions = 0
 mixed_color_id = 13 # none
@@ -418,7 +484,7 @@ while True:
                     has_started = True
                     splash.remove(start_screen_sprite)
             # MARK: color selection
-            elif game_over == False:
+            elif is_game_over == False:
                 if is_color_selected == False:
                     # move to next color button
                     if event.key == pygame.K_RIGHT:
@@ -456,7 +522,7 @@ while True:
                 # press K_RETURN or K_SPACE to restart
                 # clear all blocks & restore state upon restart
                 if event.key == pygame.K_RETURN or event.key == pygame.K_SPACE:
-                    game_over = False
+                    is_game_over = False
                     curr_selected_color_button = button_cyan
                     num_color_portions = 0
                     mixed_color_id = 13 # none
@@ -466,6 +532,7 @@ while True:
                     reset_color_buttons()
                     disable_arrow_button_highlight()
                     update_score_label(score)
+                    hide_game_over_popup()
 
                     for block in blocks:
                         splash.remove(block.block_sprite)
@@ -473,11 +540,11 @@ while True:
 
     # update start screen animation only on delay cycles
     if has_started == False and frame % anim_delay == 0: 
-        start_screen_sprite[0] = (frame // anim_delay) % (start_screen_sheet.width // display.width)
+        start_screen_sprite[0] = (frame // anim_delay) % ((start_screen_sheet.width // display.width) * scale)
     
     frame += 1
 
-    if game_over == False and has_started == True:
+    if is_game_over == False and has_started == True:
         if random.random() < block_spawn_rate and cooldown == 0:
             spawn_block()
             cooldown = 20
@@ -489,7 +556,12 @@ while True:
             if block.block_sprite.y > display.height:
                 splash.remove(block.block_sprite)
                 blocks.remove(block)
+            
+            # stop game once block collides
             elif is_block_collided(block):
-                game_over = True
-                # display_game_over()
+                is_game_over = True
+                if (score > best_score):
+                    best_score = score
+                display_game_over()
+
     time.sleep(0.1)
