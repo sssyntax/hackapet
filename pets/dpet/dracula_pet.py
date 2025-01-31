@@ -12,12 +12,18 @@ display = PyGameDisplay(width=128, height=128)
 splash = displayio.Group()
 display.show(splash)
 
-island_background = displayio.OnDiskBitmap("desert.bmp")
+backgrounds = ["desert.bmp", "desert2.bmp", "desert3.bmp"]
+current_bg_index = 0
+last_bg_change_time = time.time()
+
+island_background = displayio.OnDiskBitmap(backgrounds[current_bg_index])
 bg_sprite = displayio.TileGrid(island_background, pixel_shader=island_background.pixel_shader)
 splash.append(bg_sprite)
 
 tile_width = 32
 tile_height = 32
+
+
 
 # Sprites
 
@@ -54,6 +60,16 @@ splash.append(crab_sprite)
 
 crab_speed = 2
 crab_direction = 1
+
+def change_background():
+    global current_bg_index, bg_sprite
+    current_bg_index = (current_bg_index + 1) % len(backgrounds)
+    new_background = displayio.OnDiskBitmap(backgrounds[current_bg_index])
+    new_bg_sprite = displayio.TileGrid(new_background, pixel_shader=new_background.pixel_shader)
+    
+    splash.insert(0, new_bg_sprite) 
+    splash.pop(1)
+
 
 def spawn_fireball():
     x_position = random.randint(0, display.width - tile_width)
@@ -153,12 +169,16 @@ def display_proximity_message(message):
     splash.append(text_area)
 
 frame = 0
-speed = 4
+speed = 3
 game_over = False
 
 wings_frames = 0
 
 while True:
+    if time.time() - last_bg_change_time >= 15:
+        change_background()
+        last_bg_change_time = time.time()
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
