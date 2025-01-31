@@ -43,6 +43,7 @@ maintain_bmp = displayio.OnDiskBitmap(open("maintainance_truck.bmp", "rb"))
 forest_background = displayio.OnDiskBitmap("game_background.bmp")
 ring_sheet = displayio.OnDiskBitmap("ring.bmp")
 nuke_sheet = displayio.OnDiskBitmap("nuke.bmp")
+menu_background = displayio.OnDiskBitmap("menu_background.bmp")
 
 # -------------------------------------
 # THE GAME 
@@ -267,6 +268,8 @@ random_group.append(dice)
 idle_on_group = displayio.Group()
 idle_on_group.hidden = True  # Start hidden
 
+
+
 background = displayio.TileGrid(
     background_bmp,
     pixel_shader=background_bmp.pixel_shader,
@@ -334,6 +337,19 @@ idle_always_on_group.append(clock_label)
 
 menu_group = displayio.Group()
 menu_group.hidden = False  
+
+# Background for menu
+menu_background_sprite = displayio.TileGrid(
+    menu_background,
+    pixel_shader=menu_background.pixel_shader,
+    width=1,
+    height=1,
+    tile_width=128,
+    tile_height=128,
+    default_tile=0
+)
+
+menu_group.append(menu_background_sprite)
 
 # Text for menu
 text_menu_group = displayio.Group()
@@ -582,10 +598,14 @@ while True:
                 always_on = True
                 idle_always_on_group.hidden = False
                 idle_on_group.hidden = True
-        elif keys[pygame.K_RIGHT] or animate:
+        elif keys[pygame.K_RIGHT]:
+            animate = True
+
+
+        if animate:
             if always_on:
-                animate = True
                 always_on_plane[0] = plane_frame
+                print(plane_frame)
                 if plane_frame == 23:
                     plane_frame = 0
                     always_on_plane[0] = plane_frame
@@ -594,10 +614,10 @@ while True:
 
 
         if not always_on:
-            plane_frame += 1
             on_plane[0] = plane_frame
             if plane_frame == 23:
                 plane_frame = 0
+                on_plane[0] = 0
 
     elif current_screen == "random":
         if keys[pygame.K_LEFT]:
@@ -716,8 +736,8 @@ while True:
     
 
 
-    plane_frame = (plane_frame + 1) % ANIMATION_FRAMES 
-    plane[0] = plane_frame
+        plane_frame = (plane_frame + 1) % ANIMATION_FRAMES 
+        plane[0] = plane_frame
 
     time.sleep(0.1)
     if datetime.now().strftime("%H:%M") != current_time:
