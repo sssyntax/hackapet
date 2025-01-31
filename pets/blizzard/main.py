@@ -84,7 +84,7 @@ def cleanUpBalls():
     balls.clear()
 
 frame = 0
-hunger = 1 #25.0
+hunger = 25.0
 thirst = 35.0
 
 ticks = 0
