@@ -16,16 +16,68 @@ backgrounds = ["desert.bmp", "desert2.bmp", "desert3.bmp"]
 current_bg_index = 0
 last_bg_change_time = time.time()
 
-island_background = displayio.OnDiskBitmap(backgrounds[current_bg_index])
-bg_sprite = displayio.TileGrid(island_background, pixel_shader=island_background.pixel_shader)
-splash.append(bg_sprite)
-
 tile_width = 32
 tile_height = 32
 
+def show_game_over_screen():
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        time.sleep(1)
+
+        if show_start_menu():
+            reset_game()
+            break
+
+start_menu = displayio.OnDiskBitmap("start_menu.bmp")
+start_menu_sprite = displayio.TileGrid(start_menu, pixel_shader=start_menu.pixel_shader) 
+
+quit_menu = displayio.OnDiskBitmap("quit_menu.bmp")
+quit_menu_sprite = displayio.TileGrid(quit_menu, pixel_shader=quit_menu.pixel_shader) 
 
 
-# Sprites
+
+
+def show_start_menu():
+
+    splash.append(start_menu_sprite)
+    
+    current_action = 1
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_UP]:
+            if current_action == 1:
+                splash.pop()
+                splash.append(quit_menu_sprite)
+                current_action = 2
+            elif current_action == 2:
+                splash.pop()
+                splash.append(start_menu_sprite)
+                current_action = 1
+        elif keys[pygame.K_DOWN]:
+            if current_action == 1:
+                splash.pop()
+                splash.append(quit_menu_sprite)
+                current_action = 2
+            elif current_action == 2:
+                splash.pop()
+                splash.append(start_menu_sprite)
+                current_action = 1
+
+        if keys[pygame.K_RIGHT]:
+            if current_action == 1:
+                return True
+            elif current_action == 2:
+                pygame.quit()        
+                exit()   
+        time.sleep(0.1)
 
 dog_sheet = displayio.OnDiskBitmap("doggy.bmp")
 dog_sprite = displayio.TileGrid(
@@ -99,10 +151,10 @@ def display_found_it():
     text_area = label.Label(font, text="YOU FOUND IT!", color=0x000000, x=(display.width - 100) // 2,
                             y=(display.height - 10))
     splash.append(text_area)
-    game_over_image = displayio.OnDiskBitmap("restart.bmp")
+    win_image = displayio.OnDiskBitmap("win.bmp")
     game_over_sprite = displayio.TileGrid(
-        game_over_image,
-        pixel_shader=game_over_image.pixel_shader
+        win_image,
+        pixel_shader=win_image.pixel_shader
     )
     splash.append(game_over_sprite)
     global game_over
@@ -136,6 +188,8 @@ def reset_game():
     while len(splash) > 0:
         splash.pop()
 
+    island_background = displayio.OnDiskBitmap(backgrounds[current_bg_index])
+    bg_sprite = displayio.TileGrid(island_background, pixel_shader=island_background.pixel_shader) 
     splash.append(bg_sprite)
     splash.append(dog_sprite)
     splash.append(crab_sprite)
@@ -152,7 +206,7 @@ def get_proximity():
 
     if distance == 0:
         return "YOU FOUND IT!"
-    elif distance <= 10:
+    elif distance <= 5:
         return "HOT!"
     elif distance <= 30:
         return "WARM!"
@@ -175,110 +229,116 @@ game_over = False
 wings_frames = 0
 
 while True:
-    if time.time() - last_bg_change_time >= 15:
-        change_background()
-        last_bg_change_time = time.time()
+    if show_start_menu():
 
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            exit()
+        reset_game()
 
-    keys = pygame.key.get_pressed()
+        while True:
+                    
+            if time.time() - last_bg_change_time >= 15:
+                change_background()
+                last_bg_change_time = time.time()
 
-    if not game_over:
-        if keys[pygame.K_LEFT] and dog_sprite.x > 0:
-            dog_sprite.x -= speed
-        if keys[pygame.K_RIGHT] and dog_sprite.x < display.width - tile_width:
-            dog_sprite.x += speed
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
 
-        if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT] and dog_sprite.y < display.height - tile_height - 10:
-            dog_sprite.y += speed
-        if keys[pygame.K_UP] and dog_sprite.y > 0 :
-            dog_sprite.y -= speed
-            splash.remove(dog_sprite)
-            dog_wings_sheet = displayio.OnDiskBitmap("doggy_wings.bmp")
-            dog_sprite = displayio.TileGrid(
-                dog_wings_sheet,
-                pixel_shader=dog_wings_sheet.pixel_shader,
-                width=1,
-                height=1,
-                tile_width=tile_width,
-                tile_height=tile_height,
-                default_tile=0,
-                x=dog_sprite.x,
-                y=dog_sprite.y
-            )
-            splash.append(dog_sprite)
+            keys = pygame.key.get_pressed()
 
-        
-        if keys[pygame.K_LEFT] or keys[pygame.K_RIGHT] or keys[pygame.K_UP]:
-            dog_sprite[0] = wings_frames
+            if not game_over:
+                if keys[pygame.K_LEFT] and dog_sprite.x > 0:
+                    dog_sprite.x -= speed
+                if keys[pygame.K_RIGHT] and dog_sprite.x < display.width - tile_width:
+                    dog_sprite.x += speed
 
-        if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT] and dog_sprite.y > display.height - tile_height - 20 and dog_sprite.y < display.height - tile_height:
-            splash.remove(dog_sprite)
-            dog_sprite = displayio.TileGrid(
-            dog_sheet,
-                pixel_shader=dog_sheet.pixel_shader,
-                width=1,
-                height=1,
-                tile_width=tile_width,
-                tile_height=tile_height,
-                default_tile=0,
-                x=dog_sprite.x,
-                y=dog_sprite.y
-            )
-            splash.append(dog_sprite)
+                if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT] and dog_sprite.y < display.height - tile_height - 10:
+                    dog_sprite.y += speed
+                if keys[pygame.K_UP] and dog_sprite.y > 0 :
+                    dog_sprite.y -= speed
+                    splash.remove(dog_sprite)
+                    dog_wings_sheet = displayio.OnDiskBitmap("doggy_wings.bmp")
+                    dog_sprite = displayio.TileGrid(
+                        dog_wings_sheet,
+                        pixel_shader=dog_wings_sheet.pixel_shader,
+                        width=1,
+                        height=1,
+                        tile_width=tile_width,
+                        tile_height=tile_height,
+                        default_tile=0,
+                        x=dog_sprite.x,
+                        y=dog_sprite.y
+                    )
+                    splash.append(dog_sprite)
 
-        crab_sprite.x += crab_speed * crab_direction
-        if crab_sprite.x <= 0 or crab_sprite.x >= display.width - crab_width:
-            crab_direction *= -1
+                
+                if keys[pygame.K_LEFT] or keys[pygame.K_RIGHT] or keys[pygame.K_UP]:
+                    dog_sprite[0] = wings_frames
 
-        if abs(dog_sprite.x - crab_sprite.x) < tile_width and abs(dog_sprite.y - crab_sprite.y) < tile_height:
-            display_proximity_message("DOG HIT CRAB!")
-            time.sleep(2)
+                if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT] and dog_sprite.y > display.height - tile_height - 20 and dog_sprite.y < display.height - tile_height:
+                    splash.remove(dog_sprite)
+                    dog_sprite = displayio.TileGrid(
+                    dog_sheet,
+                        pixel_shader=dog_sheet.pixel_shader,
+                        width=1,
+                        height=1,
+                        tile_width=tile_width,
+                        tile_height=tile_height,
+                        default_tile=0,
+                        x=dog_sprite.x,
+                        y=dog_sprite.y
+                    )
+                    splash.append(dog_sprite)
 
-        message = get_proximity()
-        display_proximity_message(message)
+                crab_sprite.x += crab_speed * crab_direction
+                if crab_sprite.x <= 0 or crab_sprite.x >= display.width - crab_width:
+                    crab_direction *= -1
 
-        if dog_sprite.x == treasure_x and dog_sprite.y == treasure_y:
-            display_found_it()
+                if abs(dog_sprite.x - crab_sprite.x) < tile_width and abs(dog_sprite.y - crab_sprite.y) < tile_height:
+                    display_proximity_message("DOG HIT CRAB!")
+                    time.sleep(2)
 
-        if random.random() < 0.02:
-            spawn_fireball()
+                message = get_proximity()
+                display_proximity_message(message)
+                if message == "HOT!":
+                    print("a7aaa")
+                    display_found_it()
 
-        for fireball in fireballs[:]:
-            fireball.y += 4
 
-            if fireball.y > display.height:
-                splash.remove(fireball)
-                fireballs.remove(fireball)
-            elif (
-                dog_sprite.x < fireball.x + tile_width
-                and dog_sprite.x + tile_width > fireball.x
-                and dog_sprite.y < fireball.y + tile_height
-                and dog_sprite.y + tile_height > fireball.y
-            ):
-                game_over = True
-                game_over_time = time.time()
-                display_proximity_message("GAME OVER!")
-                game_over_image = displayio.OnDiskBitmap("restart.bmp")
-                game_over_sprite = displayio.TileGrid(
-                    game_over_image,
-                    pixel_shader=game_over_image.pixel_shader
-                )
-                splash.append(game_over_sprite)
+                if random.random() < 0.02:
+                    spawn_fireball()
 
-    else:
-        if not restart_ready and time.time() - game_over_time >= 1.5:
-            restart_ready = True
+                for fireball in fireballs[:]:
+                    fireball.y += 4
 
-        if restart_ready and keys[pygame.K_UP]:
-            reset_game()
+                    if fireball.y > display.height:
+                        splash.remove(fireball)
+                        fireballs.remove(fireball)
+                    elif (
+                        dog_sprite.x < fireball.x + tile_width
+                        and dog_sprite.x + tile_width > fireball.x
+                        and dog_sprite.y < fireball.y + tile_height
+                        and dog_sprite.y + tile_height > fireball.y
+                    ):
+                        game_over = True
+                        game_over_time = time.time()
+                        display_proximity_message("GAME OVER!")
+                        game_over_image = displayio.OnDiskBitmap("restart.bmp")
+                        game_over_sprite = displayio.TileGrid(
+                            game_over_image,
+                            pixel_shader=game_over_image.pixel_shader
+                        )
+                        splash.append(game_over_sprite)
 
-    dog_sprite[0] = frame
-    frame = (frame + 1) % (dog_sheet.width // tile_width)
-    wings_frames = (wings_frames + 1) % 3
-    
-    time.sleep(0.1)
+            else:
+                if not restart_ready:
+                    restart_ready = True
 
+                if restart_ready:
+                    show_game_over_screen()
+
+            dog_sprite[0] = frame
+            frame = (frame + 1) % (dog_sheet.width // tile_width)
+            wings_frames = (wings_frames + 1) % 3
+            
+            time.sleep(0.1)
