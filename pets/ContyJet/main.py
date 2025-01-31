@@ -594,7 +594,12 @@ while True:
                 always_on = False
                 idle_always_on_group.hidden = True
                 idle_on_group.hidden = False
+                animate = True
+                on_plane[0] = 0
+                plane_frame = 0
             else:
+                animate = False
+                always_on_plane[0] = 0
                 always_on = True
                 idle_always_on_group.hidden = False
                 idle_on_group.hidden = True
