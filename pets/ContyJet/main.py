@@ -4,8 +4,8 @@ import pygame
 import time
 from adafruit_display_text import label
 from datetime import datetime
-import terminalio
 import random
+from adafruit_bitmap_font import bitmap_font
 
 # -------------------------------------
 # Variables
@@ -32,7 +32,7 @@ ANIMATION_FRAMES = 24
 spawn_rate = {"nuke": random.randint(1, 70)/100,
             "ring": random.randint(1, 70)/100}
 is_timer_on = False
-
+FONT = bitmap_font.load_font("ter-u12.bdf") 
 
 # Bitmaps
 btn_bmp = displayio.OnDiskBitmap(open("button.bmp", "rb"))
@@ -53,9 +53,6 @@ game = displayio.Group()
 game.hidden = True
 
 text_group = displayio.Group()
-
-FONT = terminalio.FONT
-
 # Create the score label
 score_label = label.Label(
     FONT,
@@ -228,7 +225,7 @@ refuel_group.append(refuel_plane)
 refuel_success_group = displayio.Group()
 
 refuel_success = label.Label(
-    terminalio.FONT,
+    FONT,
     text="Refueled!",
     color=0xFFFFFF,
     x=(display.width - 32) // 2 - 5,
@@ -292,7 +289,7 @@ on_plane = displayio.TileGrid(
 )
 
 fuel_label = label.Label(
-    terminalio.FONT,
+    FONT,
     text="Fuel: " + str(fuel) + "%",
     color=0xFFFFFF,
     x=(display.width - 32) // 2,
@@ -320,7 +317,7 @@ always_on_plane = displayio.TileGrid(
 )
 
 clock_label = label.Label(
-    terminalio.FONT,
+    FONT,
     text=current_time,
     color=0xFFFFFF,
     x=(display.width - 32) // 2,
@@ -342,7 +339,7 @@ menu_group.hidden = False
 text_menu_group = displayio.Group()
 
 refuel_label = label.Label(
-    terminalio.FONT,
+    FONT,
     text="Refuel",
     color=0xFFFFFF,
     x=(display.width - 32) // 2,
@@ -351,7 +348,7 @@ refuel_label = label.Label(
 text_menu_group.append(refuel_label)
 
 random_label = label.Label(
-    terminalio.FONT,
+    FONT,
     text="Random",
     color=0xFFFFFF,
     x=(display.width - 32) // 2,
@@ -360,7 +357,7 @@ random_label = label.Label(
 text_menu_group.append(random_label)
 
 walk_label = label.Label(
-    terminalio.FONT,
+    FONT,
     text="Fly",
     color=0xFFFFFF,
     x=(display.width - 16) // 2,
@@ -369,7 +366,7 @@ walk_label = label.Label(
 text_menu_group.append(walk_label)
 
 idle_label = label.Label(
-    terminalio.FONT,
+    FONT,
     text="Idle",
     color=0xFFFFFF,
     x=(display.width - 24) // 2,
@@ -443,7 +440,7 @@ fuel_error_group = displayio.Group()
 fuel_error_group.hidden = True
 
 fuel_error = label.Label(
-    terminalio.FONT,
+    FONT,
     text="Not enough fuel!",
     color=0xFFFFFF,
     x=(display.width - 32) // 2 - 30,
@@ -621,6 +618,7 @@ while True:
             refuel_truck_frame += 1
             refuel_truck[0] = refuel_truck_frame
         else:
+            is_timer_on = False
             time_elapsed += 1
             print(time_elapsed)
             if time_elapsed == 25:
@@ -637,7 +635,7 @@ while True:
                 refuel_success_group.hidden = True
                 refuel_group.hidden = True
                 menu_group.hidden = False
-                refueled = False
+                fueled = False
                 time_elapsed = 0
                 current_screen = "menu"
                 fuel_label.text = "Fuel: " + str(fuel) + "%"
