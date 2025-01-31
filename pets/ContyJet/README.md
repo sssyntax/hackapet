@@ -20,3 +20,9 @@ My Hackapet submission
 
 - A fuel system to force you to take a break
 ![Idle](https://cloud-ro0354963-hack-club-bot.vercel.app/3idle.png)
+
+## Controls
+- For the menu, use Spacebar for enter and the up and down arrow keys to navigate
+- For the game, use the left and right arrow keys and dodge the nukes while collecting rings!
+- For the dice roller, use the left arrow key to generate a random number, spacebar to exit
+- For the idle mode, use the left arrow key to switch between normal and always-on mode (spacebar to go back to the menu)

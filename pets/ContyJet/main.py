@@ -12,7 +12,7 @@ from adafruit_bitmap_font import bitmap_font
 # -------------------------------------
 selected = 0
 current_screen = "menu"
-fuel = 0
+fuel = 50
 always_on = True
 current_time = datetime.now().strftime("%H:%M")
 first_open = True
