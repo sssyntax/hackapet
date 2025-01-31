@@ -106,25 +106,40 @@ def update_health_bar():
     splash.append(health_bar)
 
 def show_restart_message():
-    restarting_label = label.Label(font, text="Restarting...", color=color)
-    restarting_label.x = (display.width - restarting_label.bounding_box[2]) // 2
-    restarting_label.y = (display.height - restarting_label.bounding_box[3]) // 2
-    splash.append(restarting_label)
+    restart_image = displayio.OnDiskBitmap("restart.png")
+    restart_sprite = displayio.TileGrid(
+        restart_image,
+        pixel_shader=restart_image.pixel_shader,
+        width=1,
+        height=1,
+        tile_width=restart_image.width,
+        tile_height=restart_image.height,
+        x=(display.width - restart_image.width) // 2,
+        y=(display.height - restart_image.height) // 2
+    )
+    splash.append(restart_sprite)
     display.refresh()
-    time.sleep(1)
-    splash.remove(restarting_label)
+    time.sleep(2)
+    splash.remove(restart_sprite)
 
 font = bitmap_font.load_font("Arial-12.bdf")
 color = 0x000000
 
-# Display "Starting..." text
-starting_label = label.Label(font, text="Starting...", color=color)
-starting_label.x = (display.width - starting_label.bounding_box[2]) // 2
-starting_label.y = (display.height - starting_label.bounding_box[3]) // 2
-splash.append(starting_label)
+starting_image = displayio.OnDiskBitmap("starting.png")
+starting_sprite = displayio.TileGrid(
+    starting_image,
+    pixel_shader=starting_image.pixel_shader,
+    width=1,
+    height=1,
+    tile_width=starting_image.width,
+    tile_height=starting_image.height,
+    x=(display.width - starting_image.width) // 2,
+    y=(display.height - starting_image.height) // 2
+)
+splash.append(starting_sprite)
 display.refresh()
-time.sleep(1)
-splash.remove(starting_label)
+time.sleep(2)
+splash.remove(starting_sprite)
 
 health = 3
 move_counter = 0
