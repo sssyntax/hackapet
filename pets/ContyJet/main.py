@@ -615,7 +615,7 @@ while True:
 
         if not always_on:
             on_plane[0] = plane_frame
-            if plane_frame == 23:
+            if plane_frame == 22:
                 plane_frame = 0
                 on_plane[0] = 0
 
