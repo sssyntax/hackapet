@@ -60,7 +60,7 @@ def check_collision(sprite1, sprite2):
         sprite1.x < sprite2.x + sprite2.tile_width and
         sprite1.x + sprite1.tile_width > sprite2.x and
         sprite1.y < sprite2.y + sprite2.tile_height and
-        sprite1.y + sprite1.tile_height > sprite2.y
+        sprite1.y + sprite2.tile_height > sprite2.y
     )
 
 def reset_game():
@@ -105,8 +105,26 @@ def update_health_bar():
         health_bar.append(health_icon)
     splash.append(health_bar)
 
+def show_restart_message():
+    restarting_label = label.Label(font, text="Restarting...", color=color)
+    restarting_label.x = (display.width - restarting_label.bounding_box[2]) // 2
+    restarting_label.y = (display.height - restarting_label.bounding_box[3]) // 2
+    splash.append(restarting_label)
+    display.refresh()
+    time.sleep(1)
+    splash.remove(restarting_label)
+
 font = bitmap_font.load_font("Arial-12.bdf")
 color = 0x000000
+
+# Display "Starting..." text
+starting_label = label.Label(font, text="Starting...", color=color)
+starting_label.x = (display.width - starting_label.bounding_box[2]) // 2
+starting_label.y = (display.height - starting_label.bounding_box[3]) // 2
+splash.append(starting_label)
+display.refresh()
+time.sleep(1)
+splash.remove(starting_label)
 
 health = 3
 move_counter = 0
@@ -169,6 +187,7 @@ while True:
         health -= 1
         move_counter = 0
         if health <= 0:
+            show_restart_message()
             reset_game()
         else:
             update_health_bar()
@@ -187,6 +206,7 @@ while True:
             splash.remove(block)
             blocks.remove(block)
         elif check_collision(sprite, block):
+            show_restart_message()
             reset_game()
 
     sprite[0] = frame
