@@ -33,7 +33,6 @@ try:
 except Exception as e:
     print(f"Error loading background: {e}")
 
-# tabucat_sprite_group = displayio.Group(scale=2)  # Scale the sprite 2x
 
 # Load the sprite sheet
 try:
@@ -815,11 +814,11 @@ while running:
             if event.key == pygame.K_RIGHT:
                 right = False
         
-        # Check for game restart condition first
+        # Handle game over
         if left:
             if minigame_active:
                 if up:
-                    minigame_over = True  # Set game_over to True
+                    minigame_over = True  # Set minigame_over to True
                     continue
             if game_over:
                 if up:
@@ -862,7 +861,7 @@ while running:
         update_cat_position()
 
         tabucat_sprite[0] = frame
-        frame = (frame + 1) % (tabucat_sheet.width // tile_width)  # Check if 'width' is directly accessible
+        frame = (frame + 1) % (tabucat_sheet.width // tile_width) 
 
         # love_points = love_points - 0.5  # Uncomment for auto-decay
         # update_love_bar()

@@ -17,16 +17,18 @@ You gain love points by feeding, petting, brushing and playing with Tabucat. Don
 
 ## how to play
 ### controls
-- <kbd>'g'</kbd> : to enter a minigame where you can gain points by catching falling yarnballs and mouse toys
-- <kbd>'f'</kbd> : to feed your cat
-- <kbd>'o'</kbd> : to pet your cat
-- <kbd>'e'</kbd> : to brush your cat
+- <kbd>left arrow key</kbd> + <kbd>right arrow key</kbd> : to enter a minigame where you can gain points by catching falling yarnballs and mouse toys
+- <kbd>up arrow key</kbd> : to brush your cat
+- <kbd>left arrow key</kbd> + <kbd>up arrow key</kbd> : to feed your cat
+- <kbd>right arrow key</kbd> + <kbd>up arrow key</kbd> : to pet your cat
 - <kbd>left arrow key</kbd> : to move the cat left
 - <kbd>right arrow key</kbd> : to move the cat right
 - don't let your cat's love bar run out. it decays rapidly if neglected.
 ### controls (minigame)
 - <kbd>left arrow key</kbd> : to move the cat left
 - <kbd>right arrow key</kbd> : to move the cat right
+- <kbd>left arrow key</kbd> + <kbd>right arrow key</kbd> : pause the minigame
+- <kbd>left arrow key</kbd> + <kbd>up arrow key</kbd> : quit the minigame
 
 ## minigame
 - catch the falling yarnballs and mouse toys to gain points
